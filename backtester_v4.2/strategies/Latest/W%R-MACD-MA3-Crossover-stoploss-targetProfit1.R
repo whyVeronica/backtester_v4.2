@@ -40,7 +40,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
   limitPrices2 <- allzero
   
   #lookback <- params$nSlow + params$nSig + params$nWait
-  lookback <- params$nSlow + params$nSig
+  lookback <- params$lookbackL + round((params$lookbackS + params$lookbackL)/2)
   
   #cat("DAY",store$iter,":","\n")
   #cat("cashflow: ",cashFlow,"\n")
@@ -53,7 +53,18 @@ getOrders <- function(store, newRowList, currentPos, params) {
     startIndexL <- store$iter - params$lookbackL
     
     for (i in 1:length(params$series)) {
-      marketOrders[i] <- ifelse(PnL[i] < -params$lossLimits || PnL[i] > params$profitTarget, -currentPos[i], 0)
+      #print(PnL[params$series[i]])
+      #if (PnL[params$series[i]] < -params$lossLimits & marketOrders[params$series[i]] == 0) print("ahhhhh")
+      
+      marketOrders[params$series[i]] <- ifelse(PnL[params$series[i]] < -params$lossLimits*positionSizes[params$series[i]]
+                                               | PnL[params$series[i]] > params$profitTarget*positionSizes[params$series[i]],
+                                               -currentPos[params$series[i]], 0)
+
+      #if (PnL[params$series[i]] < -params$lossLimits & marketOrders[params$series[i]] == 0) print("ahhhhh")
+      
+      #if (PnL[params$series[i]] > params$profitTarget & marketOrders[params$series[i]] == 0) 
+        #print("why???!")
+      #print(marketOrders)
       posPnL[i] <- ifelse(PnLCurrent[store$iter,i] > 0,PnLCurrent[store$iter,i],1)
       #posPnL[i] <- ifelse(posPnL[i]*0.01 > 1,posPnL[i]*0.1,1) #scaling down
       
@@ -72,7 +83,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
       #cat("W%R: ",R,"\n")
       
       macdData <- MACD(store$cl[startIndex:store$iter,i],
-                       nSlow=params$nSlow,nFast=params$nFast,nSig=params$nSig)
+                       nSlow=params$lookbackL,nFast=params$lookbackS,
+                       nSig=round((params$lookbackS + params$lookbackL)/2))
       macd <- macdData[,1]
       signal <- macdData[,2]
       
@@ -89,9 +101,9 @@ getOrders <- function(store, newRowList, currentPos, params) {
           #when there's a bullish crossover
           if (last(MAclS) > last(MAclL) && last(MAclS,n=2)[-2] < last(MAclL,n=2)[-2] 
               || last(macd) > last(signal) && last(macd,n=2)[-2] < last(signal,n=2)[-2]){
-            pos[params$series[i]] <- positionSizes[i] # long
+            pos[params$series[i]] <- positionSizes[params$series[i]] # long
             #pos[params$series[i]] <- 1
-            currentCashFlow[params$series[i]] <- -cl*positionSizes[i]
+            currentCashFlow[params$series[i]] <- -cl*positionSizes[params$series[i]]
             #currentCashFlow[params$series[i]] <- -cl
             #cat("Day",store$iter," Series: ",params$series[i],"\n")
             #cat("cl: ",cl,"\n")
@@ -106,9 +118,9 @@ getOrders <- function(store, newRowList, currentPos, params) {
           #when there's a bearish crossover
           if (last(MAclS) < last(MAclL) && last(MAclS,n=2)[-2] > last(MAclL,n=2)[-2] 
               || last(macd) < last(signal) && last(macd,n=2[-2]) > last(signal,n=2)[-2]){
-            pos[params$series[i]] <- -positionSizes[i]  # short
+            pos[params$series[i]] <- -positionSizes[params$series[i]] # short
             #pos[params$series[i]] <- -1
-            currentCashFlow[params$series[i]] <- cl*positionSizes[i]
+            currentCashFlow[params$series[i]] <- cl*positionSizes[params$series[i]]
             #currentCashFlow[params$series[i]] <- cl
             #cat("Day",store$iter," Series: ",params$series[i],"\n")
             #cat("cl: ",cl,"\n")

@@ -17,13 +17,13 @@ dataList <- getData(directory="PART2")
 
 #strategyFile <-'strategies/Latest/W%R-MACD-MA1-stoploss.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA2-Crossover-stoploss.R'
-#strategyFile <-'strategies/Latest/W%R-MACD-MA3-Crossover-stoploss-targetProfit.R'
+strategyFile <-'strategies/Latest/W%R-MACD-MA3-Crossover-stoploss-targetProfit1.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA4-stoploss-profitTarget.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA5-Crossover-profitPos.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA6-Crossover-Original-limit2.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA3-limit4.R'
 #strategyFile <-'strategies/Latest/MACD-MA3-limit1.R'
-strategyFile <-'strategies/Latest/5.R'
+#strategyFile <-'strategies/Latest/5.R'
 
 ###############################
 # Strategies using Limit orders
@@ -41,14 +41,14 @@ source(strategyFile) # load in getOrders
 
 #params <- list(lookback=14,lookback1=5,lookback1=8,threshold=30,series=c(1:10))#W%R & MA 
 
-params <- list(lookbackWRL2=40,lookbackS2=5,lookbackL2=16,threshold2=20,
-              lossLimits2=1000, profitTarget2=1000, 
-              lookbackWRL1=40,lookbackS1=5,lookbackL1=25,threshold1=20,
-              lossLimits1=5000, profitTarget1=5000,
-              series=6)#W%R & macd 
+#params <- list(lookbackWRL2=40,lookbackS2=5,lookbackL2=16,threshold2=20,
+              #lossLimits2=1000, profitTarget2=1000, 
+              #lookbackWRL1=40,lookbackS1=5,lookbackL1=25,threshold1=20,
+              #lossLimits1=5000, profitTarget1=5000,
+              #series=6)#W%R & macd 
 
-#params <- list(lookbackWRL=10,lookbackS=5,lookbackL=10,threshold=30,
-               #lossLimits=20, profitTarget=20,series=2)#W%R & macd 
+params <- list(lookbackR=10,lookbackS=5,lookbackL=10,threshold=30,
+               lossLimits=5, profitTarget=5,series=2)#W%R & macd 
 
 #params <- list(lookbackR=14,lookbackS=5,lookbackL=10,lookbackLimit=10,
                #threshold=30,nFast=5, nSlow=20, nSig=5,

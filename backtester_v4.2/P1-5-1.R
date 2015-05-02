@@ -15,7 +15,7 @@ sMult <- 0.2 # slippage multiplier
 lookbackWRL <- seq(from=10, to=40, by=5)
 lookbackS <- seq(from=5, to=11,by=3)
 lookbackL <- seq(from=10, to=50, by=5)
-threshold <- seq(from=25,to=49,by=5)
+threshold <- seq(from=30,to=49,by=5)
 #threshold<-30
 #nFast <- seq(from=5,to=15,by=10)
 #nFast<-12
