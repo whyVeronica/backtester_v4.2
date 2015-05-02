@@ -1,0 +1,24 @@
+Read 10 series from DATA/PART1 
+Sourcing strategies/Latest/W%R-MACD-MA3-limit1.R 
+[1] "Parameters:"
+$lookbackWRL
+[1] 10
+
+$lookbackS
+[1] 5
+
+$lookbackL
+[1] 10
+
+$threshold
+[1] 25
+
+$lossLimits
+[1] 1000
+
+$profitTarget
+[1] 3000
+
+$series
+[1] 1
+
