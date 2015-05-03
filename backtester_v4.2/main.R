@@ -16,12 +16,14 @@ dataList <- getData(directory="PART3")
 #strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
-#strategyFile <-'strategies/Modify/MA_PD.R'
+#strategyFile <-'strategies/Modify/pos_MA_PD.R'
 #strategyFile <-'strategies/Modify/no_pos.R'
 #strategyFile <-'strategies/Modify/compareMAPD.R'
 #strategyFile <-'strategies/Modify/3&6 - wan.R'
 #strategyFile <-'strategies/Modify/3&6 - han.R'
-strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
+#strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
+strategyFile <-'strategies/Modify/pos_opendiff_risk=maxdrawdown.R'
+
 
 ###############################
 # Strategies using Limit orders
