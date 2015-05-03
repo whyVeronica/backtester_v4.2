@@ -6,13 +6,13 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART2")
+dataList <- getData(directory="PART3")
 
 
 #####################################
 # Strategies using only market orders
 #####################################
-strategyFile <-'strategies/Modify/original.R'
+#strategyFile <-'strategies/Modify/original.R'
 #strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
@@ -21,6 +21,7 @@ strategyFile <-'strategies/Modify/original.R'
 #strategyFile <-'strategies/Modify/compareMAPD.R'
 #strategyFile <-'strategies/Modify/3&6 - wan.R'
 #strategyFile <-'strategies/Modify/3&6 - han.R'
+strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
 
 ###############################
 # Strategies using Limit orders
@@ -63,7 +64,8 @@ params <- list(lookback=55,sdParam=2.5,
                lookbackWRL1=c(20,10,10,0,34,30,42,0,37,35),lookbackWRL2=c(30,10,15,0,37,40,18,0,15,37),
                lookbackS1=c(11,10,8,0,5,4,8,0,9,8), lookbackS2=c(8,11,8,0,4,8,8,0,8,9),
                lookbackL1=c(15,42,40,0,15,17,10,0,38,10),lookbackL2=c(45,40,40,0,9,25,10,0,30,12),
-               threshold1_wr=c(35,10,32,0,43,24,13,0,33,40),threshold2_wr=c(25,10,30,0,45,30,12,0,30,38))
+               threshold1_wr=c(35,10,32,0,43,24,13,0,33,40),threshold2_wr=c(25,10,30,0,45,30,12,0,30,38),
+               lossLimits=c(1,1,0.1,5,5,1,10,2,1,0.1), profitTarget=c(1,1,0.1,5,5,1,10,2,1,0.1))
 
 
 #params		<- list(spreadPercentage=0.0001,inventoryLimitAs=rep(500,10),series=1:10) # paras for limit strategy
@@ -74,7 +76,7 @@ print(params)
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)
 numDays <- nrow(dataList[[1]])
-inSampDays <- 1100
+inSampDays <- 1299
 
 # in-sample period
 dataList <- lapply(dataList, function(x) x[1:inSampDays])
