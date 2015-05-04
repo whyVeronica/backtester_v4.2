@@ -91,9 +91,9 @@ getOrders <- function(store, newRowList, currentPos, params) {
       
       MAclS <- SMA(store$cl[(startIndexS-params$nWait):store$iter,i],n=params$lookbackS)
       MAclL <- SMA(store$cl[(startIndexL-params$nWait):store$iter,i],n=params$lookbackL)
-      print(store$iter)
-      cat("MAclS",MAclS,"\n")
-      cat("MAclL",MAclL,"\n")
+      #print(store$iter)
+      #cat("MAclS",MAclS,"\n")
+      #cat("MAclL",MAclL,"\n")
       
       #Take a positin when signel line cross(as soon as the trend acceleration appears)
       if (params$nWait == 0){
@@ -104,7 +104,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if ((last(MAclS) > last(MAclL) & last(MAclS,n=2)[-2] < last(MAclL,n=2)[-2]) 
               | (last(macd) > last(signal) & last(macd,n=2)[-2] < last(signal,n=2)[-2])){
             pos[params$series[i]] <- positionSizes[params$series[i]] # long
-            cat(store$iter,": buy","\n")
+            #cat(store$iter,": buy","\n")
             #pos[params$series[i]] <- 1
             currentCashFlow[params$series[i]] <- -cl*positionSizes[params$series[i]]
             #currentCashFlow[params$series[i]] <- -cl
@@ -122,7 +122,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if ((last(MAclS) < last(MAclL) & last(MAclS,n=2)[-2] > last(MAclL,n=2)[-2])
               | (last(macd) < last(signal) & last(macd,n=2)[-2] > last(signal,n=2)[-2])){
             pos[params$series[i]] <- -positionSizes[params$series[i]] # short
-            cat(store$iter,": sell","\n")
+            #cat(store$iter,": sell","\n")
             #pos[params$series[i]] <- -1
             currentCashFlow[params$series[i]] <- cl*positionSizes[params$series[i]]
             #currentCashFlow[params$series[i]] <- cl
