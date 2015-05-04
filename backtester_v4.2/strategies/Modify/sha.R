@@ -1,7 +1,7 @@
 #Crossover+Stoploss+target profit+ProfitPos
 maxRows <- 2200
 cashFlow <- rep(0,10)
-PnL <- rep(0,10)
+PnL <- matrix(0,nrow=maxRows,ncol=10)
 PnLCurrent <- matrix(0,nrow=maxRows,ncol=10)
 countOS <- rep(0,10)
 countOB <- rep(0,10)
@@ -14,12 +14,12 @@ getOrders <- function(store, newRowList, currentPos, params) {
   if (is.null(store)) {
     #checkParams(params)
     cashFlow <- rep(0,10)
-    PnL <- rep(0,10)
+    #PnL <- rep(0,10)
     store <- initStore(newRowList,params$series)
   }
   else 
     store <- updateStore(store, newRowList,params$series)
-
+  
   positionSizes <- rep(1,10)
   PnLOld <- allzero
   PnLNew <- allzero
@@ -53,17 +53,18 @@ getOrders <- function(store, newRowList, currentPos, params) {
     startIndexL <- store$iter - params$lookbackL
     
     for (i in 1:length(params$series)) {
-      print(PnL)
+      #print(PnL)
       #if (PnL[params$series[i]] < -params$lossLimits & marketOrders[params$series[i]] == 0) print("ahhhhh")
-      
-      marketOrders[params$series[i]] <- ifelse(PnL[params$series[i]] < -params$lossLimits*positionSizes[params$series[i]]
-                                               | PnL[params$series[i]] > params$profitTarget*positionSizes[params$series[i]],
+      #print(pfolioPnL[1])
+      PnLNow <- PnL[store$iter-1,params$series[i]]
+      marketOrders[params$series[i]] <- ifelse(PnLNow < -params$lossLimits*positionSizes[params$series[i]]
+                                               | PnLNow > params$profitTarget*positionSizes[params$series[i]],
                                                -currentPos[params$series[i]], 0)
-
+      
       if (PnL[params$series[i]] < -params$lossLimits & marketOrders[params$series[i]] == -currentPos[params$series[i]]) print("ahhhhh")
       
       #if (PnL[params$series[i]] > params$profitTarget & marketOrders[params$series[i]] == 0) 
-        #print("why???!")
+      #print("why???!")
       #print(marketOrders)
       posPnL[i] <- ifelse(PnLCurrent[store$iter,i] > 0,PnLCurrent[store$iter,i],1)
       #posPnL[i] <- ifelse(posPnL[i]*0.01 > 1,posPnL[i]*0.1,1) #scaling down
@@ -95,40 +96,42 @@ getOrders <- function(store, newRowList, currentPos, params) {
       
       ##Take a positin when signel line cross(as soon as the trend acceleration appears)
       #if (params$nWait == 0){
-        #in a oversold/overbought price level
-        if (R < -50 - params$threshold){
-          countOS[i] <<- countOS[i] + 1
-          #when there's a bullish crossover
-          if (last(MAclS) > last(MAclL) && last(MAclS,n=2)[-2] < last(MAclL,n=2)[-2] 
-              || last(macd) > last(signal) && last(macd,n=2)[-2] < last(signal,n=2)[-2]){
-            pos[params$series[i]] <- positionSizes[params$series[i]] # long
-            #pos[params$series[i]] <- 1
-            currentCashFlow[params$series[i]] <- -cl*positionSizes[params$series[i]]
-            #currentCashFlow[params$series[i]] <- -cl
-            #cat("Day",store$iter," Series: ",params$series[i],"\n")
-            #cat("cl: ",cl,"\n")
-            #cat("positionSize: ",positionSizes[i],"\n")
-            #cat("pos: ",pos[params$series[i]],"\n")
-            #cat("currentCashFlow: ",currentCashFlow,"\n")
-          }         
+      #in a oversold/overbought price level
+      if (R < -50 - params$threshold){
+        countOS[i] <<- countOS[i] + 1
+        #when there's a bullish crossover
+        if (last(MAclS) > last(MAclL) && last(MAclS,n=2)[-2] < last(MAclL,n=2)[-2] 
+            || last(macd) > last(signal) && last(macd,n=2)[-2] < last(signal,n=2)[-2]){
+          pos[params$series[i]] <- positionSizes[params$series[i]] # long
+          cat(store$iter,": buy","\n")
+          #pos[params$series[i]] <- 1
+          currentCashFlow[params$series[i]] <- -cl*positionSizes[params$series[i]]
+          #currentCashFlow[params$series[i]] <- -cl
+          #cat("Day",store$iter," Series: ",params$series[i],"\n")
+          #cat("cl: ",cl,"\n")
+          #cat("positionSize: ",positionSizes[i],"\n")
+          #cat("pos: ",pos[params$series[i]],"\n")
+          #cat("currentCashFlow: ",currentCashFlow,"\n")
+        }         
+      }
+      #When in overbought price level
+      if (R > -50 + params$threshold){
+        countOB[i] <<- countOB[i] + 1
+        #when there's a bearish crossover
+        if (last(MAclS) < last(MAclL) && last(MAclS,n=2)[-2] > last(MAclL,n=2)[-2] 
+            || last(macd) < last(signal) && last(macd,n=2[-2]) > last(signal,n=2)[-2]){
+          pos[params$series[i]] <- -positionSizes[params$series[i]] # short
+          cat(store$iter,": sell","\n")
+          #pos[params$series[i]] <- -1
+          currentCashFlow[params$series[i]] <- cl*positionSizes[params$series[i]]
+          #currentCashFlow[params$series[i]] <- cl
+          #cat("Day",store$iter," Series: ",params$series[i],"\n")
+          #cat("cl: ",cl,"\n")
+          #cat("positionSize: ",- positionSizes[i],"\n")
+          #cat("pos: ",pos[params$series[i]],"\n")
+          #cat("currentCashFlow: ",currentCashFlow,"\n")
         }
-        #When in overbought price level
-        if (R > -50 + params$threshold){
-          countOB[i] <<- countOB[i] + 1
-          #when there's a bearish crossover
-          if (last(MAclS) < last(MAclL) && last(MAclS,n=2)[-2] > last(MAclL,n=2)[-2] 
-              || last(macd) < last(signal) && last(macd,n=2[-2]) > last(signal,n=2)[-2]){
-            pos[params$series[i]] <- -positionSizes[params$series[i]] # short
-            #pos[params$series[i]] <- -1
-            currentCashFlow[params$series[i]] <- cl*positionSizes[params$series[i]]
-            #currentCashFlow[params$series[i]] <- cl
-            #cat("Day",store$iter," Series: ",params$series[i],"\n")
-            #cat("cl: ",cl,"\n")
-            #cat("positionSize: ",- positionSizes[i],"\n")
-            #cat("pos: ",pos[params$series[i]],"\n")
-            #cat("currentCashFlow: ",currentCashFlow,"\n")
-          }
-        }
+      }
       #}
       
       #currentWorth[params$series[i]] <- ifelse(store$iter == max(params$lookbackR,lookback),
@@ -138,12 +141,11 @@ getOrders <- function(store, newRowList, currentPos, params) {
       PnLOld[params$series[i]] <- PnL[params$series[i]] #Yesterday's profit/loss
       PnLNew[params$series[i]] <- currentWorth[params$series[i]] +  cashFlow[params$series[i]]
       PnLCurrent[store$iter,params$series[i]] <<- PnLNew[params$series[i]] - PnLOld[params$series[i]]
-      
+      PnL[store$iter,params$series[i]] <<- PnLNew[params$series[i]]
     }
   }
   marketOrders <- marketOrders + pos
   cashFlow <<- cashFlow + currentCashFlow
-  PnL <<- PnLNew
   POS <<- positionSizes
   #pfolioPnL <<- pfolioPnL
   #cat("marketOrders: ",marketOrders,"\n")
@@ -247,4 +249,4 @@ updateStore <- function(store, newRowList, series) {
   store$lo <- updateLoStore(store$lo,newRowList,series,store$iter)
   #store$CF <- updateCFStore(store$CF,newRowList,series,store$iter)
   return(store)
-}
+} 

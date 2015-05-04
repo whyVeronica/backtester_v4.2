@@ -6,7 +6,7 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART2")
+dataList <- getData(directory="PART1")
 
 #####################################
 # Strategies using only market orders
@@ -17,13 +17,14 @@ dataList <- getData(directory="PART2")
 
 #strategyFile <-'strategies/Latest/W%R-MACD-MA1-stoploss.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA2-Crossover-stoploss.R'
-strategyFile <-'strategies/Latest/W%R-MACD-MA3-Crossover-stoploss-targetProfit1.R'
+#strategyFile <-'strategies/Latest/W%R-MACD-MA-Crossover-stoploss-targetProfit1.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA4-stoploss-profitTarget.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA5-Crossover-profitPos.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA6-Crossover-Original-limit2.R'
 #strategyFile <-'strategies/Latest/W%R-MACD-MA3-limit4.R'
 #strategyFile <-'strategies/Latest/MACD-MA3-limit1.R'
 #strategyFile <-'strategies/Latest/5.R'
+strategyFile <-'strategies/Modify/sha.R'
 
 ###############################
 # Strategies using Limit orders
@@ -48,7 +49,7 @@ source(strategyFile) # load in getOrders
               #series=6)#W%R & macd 
 
 params <- list(lookbackR=10,lookbackS=5,lookbackL=10,threshold=30,
-               lossLimits=5, profitTarget=5,series=2)#W%R & macd 
+               lossLimits=5, profitTarget=5,series=1)#W%R & macd 
 
 #params <- list(lookbackR=14,lookbackS=5,lookbackL=10,lookbackLimit=10,
                #threshold=30,nFast=5, nSlow=20, nSig=5,
