@@ -13,7 +13,7 @@ dataList <- getData(directory="PART3")
 # Strategies using only market orders
 #####################################
 #strategyFile <-'strategies/Modify/original.R'
-strategyFile <-'strategies/Modify/no2.R'
+#strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
 #strategyFile <-'strategies/Modify/pos_MA_PD.R'
@@ -24,7 +24,7 @@ strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
 #strategyFile <-'strategies/Modify/pos_opendiff_risk=maxdrawdown.R'
 #strategyFile <-'strategies/Modify/pos_op_risk=mdd.R'
-
+strategyFile <-'strategies/Modify/wait.R'
 ###############################
 # Strategies using Limit orders
 ###############################
@@ -63,6 +63,7 @@ params <- list(lookback=55,sdParam=2.5,
                lookback2_macd=10,
                threshold=15,nFast=5,
                nSlow = 29, nSig = 8,
+               nWait=rep(1,10),
                lookbackWRL1=c(20,10,10,0,34,30,42,0,37,35),lookbackWRL2=c(30,10,15,0,37,40,18,0,15,37),
                lookbackS1=c(11,10,8,0,5,4,8,0,9,8), lookbackS2=c(8,11,8,0,4,8,8,0,8,9),
                lookbackL1=c(15,42,40,0,15,17,10,0,38,10),lookbackL2=c(45,40,40,0,9,25,10,0,30,12),
