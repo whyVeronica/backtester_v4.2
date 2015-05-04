@@ -9,31 +9,34 @@
 # Note: limit orders are automatically cancelled at the end of the day
 
 getOrders <- function(store, newRowList, currentPos, params) {
+  
+  allzero  <- rep(0,length(newRowList)) # used for initializing vectors
+  marketOrders <- allzero
+  limitOrders1 <- allzero
+  limitPrices1 <- allzero
+  limitOrders2 <- allzero
+  limitPrices2 <- allzero
+  spread <- allzero
 
     #cat("currentPos", formatC(currentPos,3),"\n")
-
+  for (i in 1:length(params$series)){
     # check if current inventory is above a limit and if so exit completely
     # with a market order
 
-    marketOrders <- ifelse(abs(currentPos) > params$inventoryLimits, -currentPos, 0)
-
+    #marketOrders <- ifelse(abs(currentPos) > params$inventoryLimits, -currentPos, 0)
+    
     # use the range (High-Low) as a indicator for a reasonable "spread" for
     # this pseudo market making strategy
-    spread <- sapply(1:length(newRowList),function(i)
-                     params$spreadPercentage * (newRowList[[i]]$High -
-                                                   newRowList[[i]]$Low))
+    spread[params$series[i]] <- params$spreadPercentage * (newRowList[[params$series[i]]]$High - newRowList[[params$series[i]]]$Low)
+    
+    limitOrders1[params$series[i]] <- 1 # BUY LIMIT ORDERS
+    limitPrices1[params$series[i]] <- newRowList[[params$series[i]]]$Close - spread[params$series[i]]/2
+    
+    limitOrders2[params$series[i]] <- -1 # SELL LIMIT ORDERS
+    limitPrices2[params$series[i]] <- newRowList[[params$series[i]]]$Close + spread[params$series[i]]/2
+  }
 
-    limitOrders1  <- rep(1,length(newRowList)) # BUY LIMIT ORDERS
-    #print(limitOrders1)
-    limitPrices1  <- sapply(1:length(newRowList),function(i) 
-                                        newRowList[[i]]$Close - spread[i]/2)
-    print(limitPrices1)
-    #print(newRowList[[9]])
-    #print(newRowList[[9]]$Close - spread[9]/2)
-
-    limitOrders2  <- rep(-1,length(newRowList)) # SELL LIMIT ORDERS
-    limitPrices2  <- sapply(1:length(newRowList),function(i) 
-                                        newRowList[[i]]$Close + spread[i]/2)
+    
 
 	return(list(store=store,marketOrders=marketOrders,
 	                        limitOrders1=limitOrders1,

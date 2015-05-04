@@ -25,8 +25,9 @@ dataList <- getData(directory="PART1")
 #strategyFile <-'strategies/Latest/MACD-MA3-limit1.R'
 #strategyFile <-'strategies/Latest/5.R'
 #strategyFile <-'strategies/Modify/sha.R'
-strategyFile <-'strategies/Modify/wait1.R'
-
+#strategyFile <-'strategies/Modify/wait1.R'
+strategyFile <-'strategies/Modify/limit1.R'
+#strategyFile <-'strategies/simple_limit4.R'
 ###############################
 # Strategies using Limit orders
 ###############################
@@ -49,8 +50,10 @@ source(strategyFile) # load in getOrders
               #lossLimits1=5000, profitTarget1=5000,
               #series=6)#W%R & macd 
 
-params <- list(lookbackR=10,lookbackS=5,lookbackL=10,threshold=30,nWait=2,
-               lossLimits=5, profitTarget=5,series=1)#W%R & macd 
+params  	<- list(lookbackLimit=10,spreadPercentage=0.001,series=c(1:10)) # params for limit strategy
+
+#params <- list(lookbackR=10,lookbackS=5,lookbackL=10,threshold=30,nWait=2,
+               #lossLimits=5, profitTarget=5,lookbackLimit=10,series=2)#W%R & macd 
 
 #params <- list(lookbackR=14,lookbackS=5,lookbackL=10,lookbackLimit=10,
                #threshold=30,nFast=5, nSlow=20, nSig=5,
