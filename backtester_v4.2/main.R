@@ -24,7 +24,10 @@ dataList <- getData(directory="PART3")
 #strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
 #strategyFile <-'strategies/Modify/pos_opendiff_risk=maxdrawdown.R'
 #strategyFile <-'strategies/Modify/pos_op_risk=mdd.R'
-strategyFile <-'strategies/Modify/wait.R'
+#strategyFile <-'strategies/Modify/wait.R'
+#strategyFile <-'strategies/Modify/pos_opendiff+CPnL.R'
+strategyFile <-'strategies/Modify/pos_opendiff+MAPnL.R'
+
 ###############################
 # Strategies using Limit orders
 ###############################

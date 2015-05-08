@@ -1,7 +1,7 @@
 source('framework/data.R'); 
 source('framework/backtester.R')
 source('framework/processResults.R'); 
-source('strategies/Modify/limit1.R') 
+source('strategies/limit1.R') 
 
 numOfDays <- 1100
 dataList <- getData(directory="PART1")
@@ -25,8 +25,10 @@ sMult <- 0.2 # slippage multiplier
 #not suitable?
 
 #for series6: 1+,2+
-lookbackLimit <- seq(from=40,to=150,by=1)
+#lookbackLimit <- seq(from=40,to=150,by=1)
 
+#for series7:
+lookbackLimit <- seq(from=5,to=95,by=10)
 
 
 paramsList  <- list(lookbackLimit)
@@ -38,7 +40,7 @@ pfolioPnLList <- vector(mode="list",length=numberComb)
 
 count <- 1
 for (lbl in lookbackLimit) {
-  params <- list(lookbackLimit=lbl,series=6,posSizes=rep(1,10)) 
+  params <- list(lookbackLimit=lbl,series=7,posSizes=rep(1,10)) 
   results <- backtest(dataList, getOrders, params, sMult)
   pfolioPnL <- plotResults(dataList,results)
   resultsMatrix[count,] <- c(lbl,pfolioPnL$fitAgg)

@@ -1,0 +1,603 @@
+Loading required package: Defaults
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: TTR
+Loading required package: methods
+Version 0.4-0 included new data defaults. See ?getSymbols.
+Loading required package: grid
+Warning message:
+package ‘gridExtra’ was built under R version 3.1.2 
+Read 10 series from DATA/PART1 
+Loading required package: ggplot2
+Just completed 1 out of 146 
+lookbackLimit      PD Ratio 
+         5.00          0.06 
+Just completed 2 out of 146 
+lookbackLimit      PD Ratio 
+         6.00          0.21 
+Just completed 3 out of 146 
+lookbackLimit      PD Ratio 
+          7.0           0.3 
+Just completed 4 out of 146 
+lookbackLimit      PD Ratio 
+         8.00          0.36 
+Just completed 5 out of 146 
+lookbackLimit      PD Ratio 
+         9.00          0.47 
+Just completed 6 out of 146 
+lookbackLimit      PD Ratio 
+         10.0           0.6 
+Just completed 7 out of 146 
+lookbackLimit      PD Ratio 
+        11.00          0.57 
+Just completed 8 out of 146 
+lookbackLimit      PD Ratio 
+        12.00          0.45 
+Just completed 9 out of 146 
+lookbackLimit      PD Ratio 
+        13.00          0.52 
+Just completed 10 out of 146 
+lookbackLimit      PD Ratio 
+        14.00          0.64 
+Just completed 11 out of 146 
+lookbackLimit      PD Ratio 
+        15.00          0.89 
+Just completed 12 out of 146 
+lookbackLimit      PD Ratio 
+        16.00          1.36 
+Just completed 13 out of 146 
+lookbackLimit      PD Ratio 
+        17.00          1.05 
+Just completed 14 out of 146 
+lookbackLimit      PD Ratio 
+        18.00          0.82 
+Just completed 15 out of 146 
+lookbackLimit      PD Ratio 
+        19.00          0.71 
+Just completed 16 out of 146 
+lookbackLimit      PD Ratio 
+        20.00          0.57 
+Just completed 17 out of 146 
+lookbackLimit      PD Ratio 
+        21.00          0.49 
+Just completed 18 out of 146 
+lookbackLimit      PD Ratio 
+         22.0           0.4 
+Just completed 19 out of 146 
+lookbackLimit      PD Ratio 
+        23.00          0.46 
+Just completed 20 out of 146 
+lookbackLimit      PD Ratio 
+        24.00          0.48 
+Just completed 21 out of 146 
+lookbackLimit      PD Ratio 
+        25.00          0.32 
+Just completed 22 out of 146 
+lookbackLimit      PD Ratio 
+        26.00          0.38 
+Just completed 23 out of 146 
+lookbackLimit      PD Ratio 
+        27.00          0.49 
+Just completed 24 out of 146 
+lookbackLimit      PD Ratio 
+        28.00          0.48 
+Just completed 25 out of 146 
+lookbackLimit      PD Ratio 
+        29.00          0.55 
+Just completed 26 out of 146 
+lookbackLimit      PD Ratio 
+        30.00          0.59 
+Just completed 27 out of 146 
+lookbackLimit      PD Ratio 
+        31.00          0.61 
+Just completed 28 out of 146 
+lookbackLimit      PD Ratio 
+        32.00          0.58 
+Just completed 29 out of 146 
+lookbackLimit      PD Ratio 
+        33.00          0.76 
+Just completed 30 out of 146 
+lookbackLimit      PD Ratio 
+        34.00          0.65 
+Just completed 31 out of 146 
+lookbackLimit      PD Ratio 
+         35.0           0.6 
+Just completed 32 out of 146 
+lookbackLimit      PD Ratio 
+        36.00          0.64 
+Just completed 33 out of 146 
+lookbackLimit      PD Ratio 
+        37.00          0.75 
+Just completed 34 out of 146 
+lookbackLimit      PD Ratio 
+        38.00          0.97 
+Just completed 35 out of 146 
+lookbackLimit      PD Ratio 
+         39.0           0.9 
+Just completed 36 out of 146 
+lookbackLimit      PD Ratio 
+        40.00          0.93 
+Just completed 37 out of 146 
+lookbackLimit      PD Ratio 
+        41.00          1.02 
+Just completed 38 out of 146 
+lookbackLimit      PD Ratio 
+        42.00          1.06 
+Just completed 39 out of 146 
+lookbackLimit      PD Ratio 
+        43.00          0.82 
+Just completed 40 out of 146 
+lookbackLimit      PD Ratio 
+        44.00          0.79 
+Just completed 41 out of 146 
+lookbackLimit      PD Ratio 
+        45.00          0.98 
+Just completed 42 out of 146 
+lookbackLimit      PD Ratio 
+        46.00          1.07 
+Just completed 43 out of 146 
+lookbackLimit      PD Ratio 
+        47.00          1.13 
+Just completed 44 out of 146 
+lookbackLimit      PD Ratio 
+        48.00          1.25 
+Just completed 45 out of 146 
+lookbackLimit      PD Ratio 
+        49.00          1.34 
+Just completed 46 out of 146 
+lookbackLimit      PD Ratio 
+        50.00          1.16 
+Just completed 47 out of 146 
+lookbackLimit      PD Ratio 
+        51.00          0.94 
+Just completed 48 out of 146 
+lookbackLimit      PD Ratio 
+        52.00          1.05 
+Just completed 49 out of 146 
+lookbackLimit      PD Ratio 
+        53.00          1.05 
+Just completed 50 out of 146 
+lookbackLimit      PD Ratio 
+           54             1 
+Just completed 51 out of 146 
+lookbackLimit      PD Ratio 
+        55.00          0.93 
+Just completed 52 out of 146 
+lookbackLimit      PD Ratio 
+        56.00          1.07 
+Just completed 53 out of 146 
+lookbackLimit      PD Ratio 
+        57.00          1.06 
+Just completed 54 out of 146 
+lookbackLimit      PD Ratio 
+        58.00          1.13 
+Just completed 55 out of 146 
+lookbackLimit      PD Ratio 
+        59.00          1.09 
+Just completed 56 out of 146 
+lookbackLimit      PD Ratio 
+        60.00          1.26 
+Just completed 57 out of 146 
+lookbackLimit      PD Ratio 
+        61.00          1.13 
+Just completed 58 out of 146 
+lookbackLimit      PD Ratio 
+        62.00          0.88 
+Just completed 59 out of 146 
+lookbackLimit      PD Ratio 
+        63.00          0.89 
+Just completed 60 out of 146 
+lookbackLimit      PD Ratio 
+        64.00          0.82 
+Just completed 61 out of 146 
+lookbackLimit      PD Ratio 
+        65.00          0.75 
+Just completed 62 out of 146 
+lookbackLimit      PD Ratio 
+         66.0           0.8 
+Just completed 63 out of 146 
+lookbackLimit      PD Ratio 
+        67.00          0.71 
+Just completed 64 out of 146 
+lookbackLimit      PD Ratio 
+        68.00          0.76 
+Just completed 65 out of 146 
+lookbackLimit      PD Ratio 
+        69.00          0.91 
+Just completed 66 out of 146 
+lookbackLimit      PD Ratio 
+         70.0           0.9 
+Just completed 67 out of 146 
+lookbackLimit      PD Ratio 
+        71.00          0.69 
+Just completed 68 out of 146 
+lookbackLimit      PD Ratio 
+        72.00          0.65 
+Just completed 69 out of 146 
+lookbackLimit      PD Ratio 
+        73.00          0.83 
+Just completed 70 out of 146 
+lookbackLimit      PD Ratio 
+        74.00          0.91 
+Just completed 71 out of 146 
+lookbackLimit      PD Ratio 
+        75.00          0.99 
+Just completed 72 out of 146 
+lookbackLimit      PD Ratio 
+        76.00          0.91 
+Just completed 73 out of 146 
+lookbackLimit      PD Ratio 
+        77.00          0.79 
+Just completed 74 out of 146 
+lookbackLimit      PD Ratio 
+        78.00          0.61 
+Just completed 75 out of 146 
+lookbackLimit      PD Ratio 
+        79.00          0.61 
+Just completed 76 out of 146 
+lookbackLimit      PD Ratio 
+        80.00          0.68 
+Just completed 77 out of 146 
+lookbackLimit      PD Ratio 
+        81.00          0.88 
+Just completed 78 out of 146 
+lookbackLimit      PD Ratio 
+        82.00          0.94 
+Just completed 79 out of 146 
+lookbackLimit      PD Ratio 
+        83.00          1.36 
+Just completed 80 out of 146 
+lookbackLimit      PD Ratio 
+        84.00          1.29 
+Just completed 81 out of 146 
+lookbackLimit      PD Ratio 
+        85.00          1.37 
+Just completed 82 out of 146 
+lookbackLimit      PD Ratio 
+        86.00          1.09 
+Just completed 83 out of 146 
+lookbackLimit      PD Ratio 
+        87.00          1.07 
+Just completed 84 out of 146 
+lookbackLimit      PD Ratio 
+        88.00          0.98 
+Just completed 85 out of 146 
+lookbackLimit      PD Ratio 
+        89.00          1.06 
+Just completed 86 out of 146 
+lookbackLimit      PD Ratio 
+         90.0           1.4 
+Just completed 87 out of 146 
+lookbackLimit      PD Ratio 
+        91.00          1.35 
+Just completed 88 out of 146 
+lookbackLimit      PD Ratio 
+        92.00          1.27 
+Just completed 89 out of 146 
+lookbackLimit      PD Ratio 
+        93.00          1.61 
+Just completed 90 out of 146 
+lookbackLimit      PD Ratio 
+        94.00          2.01 
+Just completed 91 out of 146 
+lookbackLimit      PD Ratio 
+        95.00          1.79 
+Just completed 92 out of 146 
+lookbackLimit      PD Ratio 
+        96.00          1.83 
+Just completed 93 out of 146 
+lookbackLimit      PD Ratio 
+        97.00          1.42 
+Just completed 94 out of 146 
+lookbackLimit      PD Ratio 
+        98.00          1.37 
+Just completed 95 out of 146 
+lookbackLimit      PD Ratio 
+        99.00          1.23 
+Just completed 96 out of 146 
+lookbackLimit      PD Ratio 
+       100.00          1.47 
+Just completed 97 out of 146 
+lookbackLimit      PD Ratio 
+       101.00          1.39 
+Just completed 98 out of 146 
+lookbackLimit      PD Ratio 
+       102.00          1.26 
+Just completed 99 out of 146 
+lookbackLimit      PD Ratio 
+       103.00          1.38 
+Just completed 100 out of 146 
+lookbackLimit      PD Ratio 
+       104.00          1.39 
+Just completed 101 out of 146 
+lookbackLimit      PD Ratio 
+        105.0           1.5 
+Just completed 102 out of 146 
+lookbackLimit      PD Ratio 
+       106.00          1.28 
+Just completed 103 out of 146 
+lookbackLimit      PD Ratio 
+       107.00          1.41 
+Just completed 104 out of 146 
+lookbackLimit      PD Ratio 
+       108.00          1.55 
+Just completed 105 out of 146 
+lookbackLimit      PD Ratio 
+       109.00          1.37 
+Just completed 106 out of 146 
+lookbackLimit      PD Ratio 
+       110.00          1.46 
+Just completed 107 out of 146 
+lookbackLimit      PD Ratio 
+       111.00          1.23 
+Just completed 108 out of 146 
+lookbackLimit      PD Ratio 
+       112.00          1.03 
+Just completed 109 out of 146 
+lookbackLimit      PD Ratio 
+       113.00          0.93 
+Just completed 110 out of 146 
+lookbackLimit      PD Ratio 
+       114.00          1.03 
+Just completed 111 out of 146 
+lookbackLimit      PD Ratio 
+       115.00          0.97 
+Just completed 112 out of 146 
+lookbackLimit      PD Ratio 
+       116.00          0.93 
+Just completed 113 out of 146 
+lookbackLimit      PD Ratio 
+       117.00          0.89 
+Just completed 114 out of 146 
+lookbackLimit      PD Ratio 
+       118.00          0.84 
+Just completed 115 out of 146 
+lookbackLimit      PD Ratio 
+       119.00          0.82 
+Just completed 116 out of 146 
+lookbackLimit      PD Ratio 
+       120.00          0.85 
+Just completed 117 out of 146 
+lookbackLimit      PD Ratio 
+        121.0           0.7 
+Just completed 118 out of 146 
+lookbackLimit      PD Ratio 
+       122.00          0.65 
+Just completed 119 out of 146 
+lookbackLimit      PD Ratio 
+       123.00          0.71 
+Just completed 120 out of 146 
+lookbackLimit      PD Ratio 
+       124.00          0.84 
+Just completed 121 out of 146 
+lookbackLimit      PD Ratio 
+        125.0           0.9 
+Just completed 122 out of 146 
+lookbackLimit      PD Ratio 
+       126.00          0.87 
+Just completed 123 out of 146 
+lookbackLimit      PD Ratio 
+       127.00          0.96 
+Just completed 124 out of 146 
+lookbackLimit      PD Ratio 
+       128.00          1.18 
+Just completed 125 out of 146 
+lookbackLimit      PD Ratio 
+       129.00          1.42 
+Just completed 126 out of 146 
+lookbackLimit      PD Ratio 
+       130.00          1.69 
+Just completed 127 out of 146 
+lookbackLimit      PD Ratio 
+       131.00          1.55 
+Just completed 128 out of 146 
+lookbackLimit      PD Ratio 
+       132.00          1.86 
+Just completed 129 out of 146 
+lookbackLimit      PD Ratio 
+        133.0           2.2 
+Just completed 130 out of 146 
+lookbackLimit      PD Ratio 
+       134.00          1.98 
+Just completed 131 out of 146 
+lookbackLimit      PD Ratio 
+       135.00          1.87 
+Just completed 132 out of 146 
+lookbackLimit      PD Ratio 
+       136.00          1.64 
+Just completed 133 out of 146 
+lookbackLimit      PD Ratio 
+       137.00          1.56 
+Just completed 134 out of 146 
+lookbackLimit      PD Ratio 
+       138.00          1.57 
+Just completed 135 out of 146 
+lookbackLimit      PD Ratio 
+       139.00          1.37 
+Just completed 136 out of 146 
+lookbackLimit      PD Ratio 
+       140.00          1.21 
+Just completed 137 out of 146 
+lookbackLimit      PD Ratio 
+       141.00          1.11 
+Just completed 138 out of 146 
+lookbackLimit      PD Ratio 
+       142.00          1.19 
+Just completed 139 out of 146 
+lookbackLimit      PD Ratio 
+       143.00          1.01 
+Just completed 140 out of 146 
+lookbackLimit      PD Ratio 
+       144.00          0.93 
+Just completed 141 out of 146 
+lookbackLimit      PD Ratio 
+       145.00          0.98 
+Just completed 142 out of 146 
+lookbackLimit      PD Ratio 
+       146.00          1.21 
+Just completed 143 out of 146 
+lookbackLimit      PD Ratio 
+        147.0           1.3 
+Just completed 144 out of 146 
+lookbackLimit      PD Ratio 
+       148.00          1.19 
+Just completed 145 out of 146 
+lookbackLimit      PD Ratio 
+        149.0           1.3 
+Just completed 146 out of 146 
+lookbackLimit      PD Ratio 
+       150.00          1.48 
+       lookbackLimit PD Ratio
+  [1,]             5     0.06
+  [2,]             6     0.21
+  [3,]             7     0.30
+  [4,]            25     0.32
+  [5,]             8     0.36
+  [6,]            26     0.38
+  [7,]            22     0.40
+  [8,]            12     0.45
+  [9,]            23     0.46
+ [10,]             9     0.47
+ [11,]            24     0.48
+ [12,]            28     0.48
+ [13,]            21     0.49
+ [14,]            27     0.49
+ [15,]            13     0.52
+ [16,]            29     0.55
+ [17,]            11     0.57
+ [18,]            20     0.57
+ [19,]            32     0.58
+ [20,]            30     0.59
+ [21,]            10     0.60
+ [22,]            35     0.60
+ [23,]            31     0.61
+ [24,]            78     0.61
+ [25,]            79     0.61
+ [26,]            14     0.64
+ [27,]            36     0.64
+ [28,]            34     0.65
+ [29,]            72     0.65
+ [30,]           122     0.65
+ [31,]            80     0.68
+ [32,]            71     0.69
+ [33,]           121     0.70
+ [34,]            19     0.71
+ [35,]            67     0.71
+ [36,]           123     0.71
+ [37,]            37     0.75
+ [38,]            65     0.75
+ [39,]            33     0.76
+ [40,]            68     0.76
+ [41,]            44     0.79
+ [42,]            77     0.79
+ [43,]            66     0.80
+ [44,]            18     0.82
+ [45,]            43     0.82
+ [46,]            64     0.82
+ [47,]           119     0.82
+ [48,]            73     0.83
+ [49,]           118     0.84
+ [50,]           124     0.84
+ [51,]           120     0.85
+ [52,]           126     0.87
+ [53,]            62     0.88
+ [54,]            81     0.88
+ [55,]            15     0.89
+ [56,]            63     0.89
+ [57,]           117     0.89
+ [58,]            39     0.90
+ [59,]            70     0.90
+ [60,]           125     0.90
+ [61,]            69     0.91
+ [62,]            74     0.91
+ [63,]            76     0.91
+ [64,]            40     0.93
+ [65,]            55     0.93
+ [66,]           113     0.93
+ [67,]           116     0.93
+ [68,]           144     0.93
+ [69,]            51     0.94
+ [70,]            82     0.94
+ [71,]           127     0.96
+ [72,]            38     0.97
+ [73,]           115     0.97
+ [74,]            45     0.98
+ [75,]            88     0.98
+ [76,]           145     0.98
+ [77,]            75     0.99
+ [78,]            54     1.00
+ [79,]           143     1.01
+ [80,]            41     1.02
+ [81,]           112     1.03
+ [82,]           114     1.03
+ [83,]            17     1.05
+ [84,]            52     1.05
+ [85,]            53     1.05
+ [86,]            42     1.06
+ [87,]            57     1.06
+ [88,]            89     1.06
+ [89,]            46     1.07
+ [90,]            56     1.07
+ [91,]            87     1.07
+ [92,]            59     1.09
+ [93,]            86     1.09
+ [94,]           141     1.11
+ [95,]            47     1.13
+ [96,]            58     1.13
+ [97,]            61     1.13
+ [98,]            50     1.16
+ [99,]           128     1.18
+[100,]           142     1.19
+[101,]           148     1.19
+[102,]           140     1.21
+[103,]           146     1.21
+[104,]            99     1.23
+[105,]           111     1.23
+[106,]            48     1.25
+[107,]            60     1.26
+[108,]           102     1.26
+[109,]            92     1.27
+[110,]           106     1.28
+[111,]            84     1.29
+[112,]           147     1.30
+[113,]           149     1.30
+[114,]            49     1.34
+[115,]            91     1.35
+[116,]            16     1.36
+[117,]            83     1.36
+[118,]            85     1.37
+[119,]            98     1.37
+[120,]           109     1.37
+[121,]           139     1.37
+[122,]           103     1.38
+[123,]           101     1.39
+[124,]           104     1.39
+[125,]            90     1.40
+[126,]           107     1.41
+[127,]            97     1.42
+[128,]           129     1.42
+[129,]           110     1.46
+[130,]           100     1.47
+[131,]           150     1.48
+[132,]           105     1.50
+[133,]           108     1.55
+[134,]           131     1.55
+[135,]           137     1.56
+[136,]           138     1.57
+[137,]            93     1.61
+[138,]           136     1.64
+[139,]           130     1.69
+[140,]            95     1.79
+[141,]            96     1.83
+[142,]           132     1.86
+[143,]           135     1.87
+[144,]           134     1.98
+[145,]            94     2.01
+[146,]           133     2.20

@@ -32,7 +32,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
       lowest <- min(store$lo[startIndexLimit:store$iter,i])
       maxLogRet[params$series[i]] <- max(abs(diff(log(store$cl[startIndexLimit:store$iter,i]))))
       #print(maxLogRet)
-      spread[params$series[i]] <- maxLogRet[params$series[i]] * (highest - lowest)
+      spread[params$series[i]] <- maxLogRet[params$series[i]]* (highest - lowest)
       limitOrders1[params$series[i]]  <- positionSizes[params$series[i]]# BUY LIMIT ORDERS
       #print(positionSizes)
       limitPrices1[params$series[i]]  <- newRowList[[params$series[i]]]$Close - spread[params$series[i]]/2

@@ -15,8 +15,8 @@ maxRows <- 1299# used to initialize a matrix to store closing prices
 liqDay <- 50
 CPnL <- CPnL1 <- CPnL2 <- matrix(0,nrow=maxRows,ncol=10)
 CPnL3 <- CPnL4 <- CPnL5 <- matrix(0,nrow=maxRows,ncol=10)
-PnLCurrent <- PnLCurrent1 <- PnLCurrent2 <- matrix(0,nrow=maxRows,ncol=10)
-PnLCurrent3 <- PnLCurrent4 <- PnLCurrent5 <- matrix(0,nrow=maxRows,ncol=10)
+#PnLCurrent <- PnLCurrent1 <- PnLCurrent2 <- matrix(0,nrow=maxRows,ncol=10)
+#PnLCurrent3 <- PnLCurrent4 <- PnLCurrent5 <- matrix(0,nrow=maxRows,ncol=10)
 currentCashFlow <-  currentCashFlow1 <- currentCashFlow2 <-  matrix(0,nrow=maxRows,ncol=10)
 currentCashFlow <-  currentCashFlow3 <- currentCashFlow4 <- currentCashFlow5<-matrix(0,nrow=maxRows,ncol=10)
 cashFlow <- cashFlow1 <- cashFlow2 <- matrix(0,nrow=maxRows,ncol=10)
@@ -28,8 +28,9 @@ maxDrawdown3 <- maxDrawdown4 <- maxDrawdown5 <- matrix(0,nrow=maxRows,ncol=10)
 MAPnL <- MAPnL1 <- MAPnL2 <- rep(0,10)
 MAPnL3 <- MAPnL4<- MAPnL5 <- rep(0,10)
 posMAPnL <- rep(1,10)
-posMDD <- rep(1,10)
-posOpdiff <- rep(1,10)
+
+PnLCurrent <- rep(0,10)
+posOpdiff <- rep(1,10) 
 
 getOrders <- function(store, newRowList, currentPos, params) {
   
@@ -45,6 +46,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
   posSizes <- rep(1,length(newRowList))
   pos1 <- pos2 <- pos3 <- pos4<- pos5<-  allzero
   PnLNew <- PnLNew1 <- PnLNew2 <- PnLNew3 <- PnLNew4 <-PnLNew5 <- allzero
+  posPnLCurrent <- rep(1,10)
   posPnL <- rep(1,length(newRowList))
   currentWorth <- currentWorth1 <- currentWorth2 <-currentWorth3 <- currentWorth4 <- currentWorth5 <- allzero
   lookback1 <- params$lookbackL1 + round((params$lookbackL1+params$lookbackS1)/2)
@@ -53,7 +55,6 @@ getOrders <- function(store, newRowList, currentPos, params) {
   maxLookback2 <- max(params$lookbackWRL2,params$lookbackL2,params$lookbackS2,lookback2)
   lookbackm <- params$nSlow + params$nSig
   
-  print(store$iter)
   #print(MAPnL)
   
   if (store$iter > params$lookback) {
@@ -62,21 +63,36 @@ getOrders <- function(store, newRowList, currentPos, params) {
     for (i in 1:length(params$series)) {
       if (i==8){
         startIndex <-  store$iter - params$lookback
- 
+        PnLCurrent[params$series[i]] <- CPnL[store$iter-1,params$series[i]]
+        #print(PnLCurrent)
+        #print(10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000)
+        if (PnLCurrent[params$series[i]] > 100000) {
+          posPnLCurrent[params$series[i]] <- 50
+        }
+        
+        else if (10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000) {
+          posPnLCurrent[params$series[i]] <- 30
+          #print("why???!")
+        }
+        
+        else if (1000 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 10000) {
+          posPnLCurrent[params$series[i]] <- 20
+        }
+        
+        else if (100 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 1000) {
+          posPnLCurrent[params$series[i]] <- 10
+        }
+        else
+          posPnLCurrent[params$series[i]] <- 1 
+        
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
         absOpenDiffs <- absOpenDiffs[1:store$iter,]
         avgAbsDiffs <- colMeans(absOpenDiffs)
         largestAvgAbsDiff <- max(avgAbsDiffs)
         posOpdiff[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        #posSizes[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        lastMDD <- maxDrawdown[store$iter-1,params$series[i]]
-        largestMDD <- max(maxDrawdown[store$iter-1,])
-        if (largestMDD ==0 | lastMDD ==0) 
-          posMDD[params$series[i]] <- 1
-        else
-          posMDD[params$series[i]] <- round(largestMDD/lastMDD)
-        posSizes[params$series[i]] <- posMDD[params$series[i]] * posOpdiff[params$series[i]]
+        posSizes[params$series[i]] <- posPnLCurrent[params$series[i]] * posOpdiff[params$series[i]]
+        
         
         marketOrders[i] <- -currentPos[i]
         
@@ -124,9 +140,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
         currentWorth[params$series[i]] <- cl*currentPos1[params$series[i]]
         PnLNew[params$series[i]] <- currentWorth[params$series[i]] +  cashFlow[store$iter,params$series[i]]
         CPnL[store$iter,params$series[i]] <<- PnLNew[params$series[i]]
-        #MAPnL[params$series[i]] <<- last(SMA(CPnL[startIndex:store$iter,params$series[i]]))
-        cumPnL <<- CPnL[1:store$iter,params$series[i]]
-        maxDrawdown[store$iter,params$series[i]] <<- max(max(cumPnL)-cumPnL,maxDrawdown[store$iter-1,params$series[i]])
+        #PnLCurrent <<- last(SMA(CPnL[startIndex:store$iter,params$series[i]]))
         #print(store$iter)
         #print(MAPnL)
         
@@ -141,29 +155,46 @@ getOrders <- function(store, newRowList, currentPos, params) {
     for (i in 1:length(params$series)) {
       
       if(i==4) {
-        #print(MAPnL[params$series[i]])
+        #print(PnLCurrent)
+        PnLCurrent[params$series[i]] <- CPnL[store$iter-1,params$series[i]]
+        #print(PnLCurrent)
+        #print(10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000)
+        if (PnLCurrent[params$series[i]] > 100000) {
+          posPnLCurrent[params$series[i]] <- 50
+        }
+        
+        else if (10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000) {
+          posPnLCurrent[params$series[i]] <- 30
+          #print("why???!")
+        }
+        
+        else if (1000 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 10000) {
+          posPnLCurrent[params$series[i]] <- 20
+        }
+        
+        else if (100 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 1000) {
+          posPnLCurrent[params$series[i]] <- 10
+        }
+        else
+          posPnLCurrent[params$series[i]] <- 1 
+        #print(posPnLCurrent)
+        
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
         absOpenDiffs <- absOpenDiffs[1:store$iter,]
         avgAbsDiffs <- colMeans(absOpenDiffs)
         largestAvgAbsDiff <- max(avgAbsDiffs)
         posOpdiff[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        #posSizes[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        lastMDD <- maxDrawdown[store$iter-1,params$series[i]]
-        largestMDD <- max(maxDrawdown[store$iter-1,])
-        if (largestMDD ==0 | lastMDD ==0) 
-          posMDD[params$series[i]] <- 1
-        else
-          posMDD[params$series[i]] <- round(largestMDD/lastMDD)
-        posSizes[params$series[i]] <- posMDD[params$series[i]] * posOpdiff[params$series[i]]
-
+        posSizes[params$series[i]] <- posPnLCurrent[params$series[i]] * posOpdiff[params$series[i]]
+        
         startIndex_macd <-  store$iter - params$lookback_macd
         startIndex1_macd <-  store$iter - params$lookback1_macd
         startIndex2_macd <-  store$iter - params$lookback2_macd
         startIndexm_macd <-  store$iter - lookbackm
         marketOrders[i] <- 0
         
-
+        
+        
         op <- newRowList[[params$series[i]]]$Open         
         cl <- newRowList[[params$series[i]]]$Close
         rsi <- last(RSI(store$cl[startIndex_macd:store$iter,i],n=params$lookback_macd)) 
@@ -219,9 +250,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           currentWorth[params$series[i]] <- cl*currentPos1[params$series[i]]
           PnLNew[params$series[i]] <- currentWorth[params$series[i]] +  cashFlow[store$iter,params$series[i]]
           CPnL[store$iter,params$series[i]] <<- PnLNew[params$series[i]]
-          #MAPnL[params$series[i]] <<- last(SMA(CPnL[startIndex_macd:store$iter,params$series[i]]))
-          cumPnL <<- CPnL[1:store$iter,params$series[i]]
-          maxDrawdown[store$iter,params$series[i]] <<- max(max(cumPnL)-cumPnL,maxDrawdown[store$iter-1,params$series[i]])
+          #PnLCurrent <<- last(SMA(CPnL[startIndex_macd:store$iter,params$series[i]]))
         }
       }
     }
@@ -233,21 +262,36 @@ getOrders <- function(store, newRowList, currentPos, params) {
     for (i in 1:length(params$series)) {
       if(i!=4&i!=8&i!=3&i!=6)  {
         startIndex <-  store$iter - params$lookback
+        
+        PnLCurrent[params$series[i]] <- CPnL[store$iter-1,params$series[i]]
+        #print(PnLCurrent)
+        #print(10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000)
+        if (PnLCurrent[params$series[i]] > 100000) {
+          posPnLCurrent[params$series[i]] <- 50
+        }
+        
+        else if (10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000) {
+          posPnLCurrent[params$series[i]] <- 30
+          #print("why???!")
+        }
+        
+        else if (1000 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 10000) {
+          posPnLCurrent[params$series[i]] <- 20
+        }
+        
+        else if (100 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 1000) {
+          posPnLCurrent[params$series[i]] <- 10
+        }
+        else
+          posPnLCurrent[params$series[i]] <- 1 
+        
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
         absOpenDiffs <- absOpenDiffs[1:store$iter,]
         avgAbsDiffs <- colMeans(absOpenDiffs)
         largestAvgAbsDiff <- max(avgAbsDiffs)
         posOpdiff[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        #posSizes[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        lastMDD <- maxDrawdown[store$iter-1,params$series[i]]
-        largestMDD <- max(maxDrawdown[store$iter-1,])
-        if (largestMDD ==0 | lastMDD ==0) 
-          posMDD[params$series[i]] <- 1
-        else
-          posMDD[params$series[i]] <- round(largestMDD/lastMDD)
-        posSizes[params$series[i]] <- posMDD[params$series[i]] * posOpdiff[params$series[i]]
-
+        posSizes[params$series[i]] <- posPnLCurrent[params$series[i]] * posOpdiff[params$series[i]]
         #posSizes[params$series[i]] <- ifelse(params$series[i] == 5, round(posSizes[params$series[i]]/2),posSizes[params$series[i]])
         #posSizes[params$series[i]] <- ifelse(params$series[i] == 10, round(posSizes[params$series[i]]/2),posSizes[params$series[i]])
         marketOrders[i] <- marketOrders1[i] <- marketOrders2[i] <- 0
@@ -305,7 +349,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
         currentWorth1[params$series[i]] <- cl*currentPos1[params$series[i]]
         PnLNew1[params$series[i]] <- currentWorth1[params$series[i]] +  cashFlow1[store$iter,params$series[i]]
         CPnL1[store$iter,params$series[i]] <<- PnLNew1[params$series[i]]
-        #MAPnL1[params$series[i]] <- last(SMA(CPnL1[startIndexWRL1:store$iter,params$series[i]]))
+        MAPnL1[params$series[i]] <- last(SMA(CPnL1[startIndexWRL1:store$iter,params$series[i]]))
         cumPnL1 <<- CPnL1[1:store$iter,params$series[i]]
         maxDrawdown1[store$iter,params$series[i]] <<- max(max(cumPnL1)-cumPnL1,maxDrawdown1[store$iter-1,params$series[i]])
         PD1 <- ifelse(CPnL1[store$iter,params$series[i]] > 0, 
@@ -363,13 +407,11 @@ getOrders <- function(store, newRowList, currentPos, params) {
         ###########################################################################################
         if(PD1 >= PD2){
           marketOrders[params$series[i]] <- marketOrders1[params$series[i]]
-          #MAPnL[params$series[i]] <<- MAPnL1[params$series[i]]
-          maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown1[store$iter,params$series[i]]
+          CPnL[store$iter,params$series[i]] <<- CPnL1[store$iter,params$series[i]]
         }
         else {
           marketOrders[params$series[i]] <- marketOrders2[params$series[i]]
-          #MAPnL[params$series[i]] <<- MAPnL2[params$series[i]]
-          maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown2[store$iter,params$series[i]]
+          CPnL[store$iter,params$series[i]] <<- CPnL2[store$iter,params$series[i]]
         }
       }
     }
@@ -379,20 +421,38 @@ getOrders <- function(store, newRowList, currentPos, params) {
     for (i in 1:length(params$series)) {
       if(i==3|i==6)  {
         startIndex <-  store$iter - params$lookback
+        
+        PnLCurrent[params$series[i]] <- CPnL[store$iter-1,params$series[i]]
+        #print(PnLCurrent)
+        #print(10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000)
+        if (PnLCurrent[params$series[i]] > 100000) {
+          posPnLCurrent[params$series[i]] <- 50
+        }
+        
+        else if (10000 < PnLCurrent[params$series[i]]  & PnLCurrent[params$series[i]] <= 100000) {
+          posPnLCurrent[params$series[i]] <- 30
+          #print("why???!")
+        }
+        
+        else if (1000 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 10000) {
+          posPnLCurrent[params$series[i]] <- 20
+        }
+        
+        else if (100 < PnLCurrent[params$series[i]] & PnLCurrent[params$series[i]] <= 1000) {
+          posPnLCurrent[params$series[i]] <- 10
+        }
+        else
+          posPnLCurrent[params$series[i]] <- 1 
+        #print(posPnLCurrent[params$series[i]])
+        
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
         absOpenDiffs <- absOpenDiffs[1:store$iter,]
         avgAbsDiffs <- colMeans(absOpenDiffs)
         largestAvgAbsDiff <- max(avgAbsDiffs)
         posOpdiff[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        #posSizes[params$series[i]] <- round(largestAvgAbsDiff/avgAbsDiffs[params$series[i]])
-        lastMDD <- maxDrawdown[store$iter-1,params$series[i]]
-        largestMDD <- max(maxDrawdown[store$iter-1,])
-        if (largestMDD ==0 | lastMDD ==0) 
-          posMDD[params$series[i]] <- 1
-        else
-          posMDD[params$series[i]] <- round(largestMDD/lastMDD)
-        posSizes[params$series[i]] <- posMDD[params$series[i]] * posOpdiff[params$series[i]]
+        posSizes[params$series[i]] <- posPnLCurrent[params$series[i]] * posOpdiff[params$series[i]]
+        
         
         marketOrders[i] <- marketOrders3[i] <- marketOrders4[i] <- 0
         marketOrders5[i] <- -currentPos[i]
@@ -574,27 +634,23 @@ getOrders <- function(store, newRowList, currentPos, params) {
         if(PD3 >= PD4) {
           if(PD3 >= PD5) {
             marketOrders[params$series[i]] <- marketOrders3[params$series[i]]
-            #MAPnL[params$series[i]] <<- MAPnL3[params$series[i]]
-            maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown3[store$iter,params$series[i]]
+            CPnL[store$iter,params$series[i]] <<- CPnL3[store$iter,params$series[i]]
           }
           
           else{
             marketOrders[params$series[i]] <- marketOrders5[params$series[i]]
-            #MAPnL[params$series[i]] <<- MAPnL5[params$series[i]]
-            maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown5[store$iter,params$series[i]]
+            CPnL[store$iter,params$series[i]] <<- CPnL5[store$iter,params$series[i]]
           } 
         }
         
         else {
           if(PD4 >= PD5) {
             marketOrders[params$series[i]] <- marketOrders4[params$series[i]]
-            #MAPnL[params$series[i]] <<- MAPnL4[params$series[i]]
-            maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown4[store$iter,params$series[i]]
+            CPnL[store$iter,params$series[i]] <<- CPnL4[store$iter,params$series[i]]
           }
           else{
             marketOrders[params$series[i]] <- marketOrders5[params$series[i]]
-            #MAPnL[params$series[i]] <<- MAPnL5[params$series[i]]
-            maxDrawdown[store$iter,params$series[i]] <<- maxDrawdown5[store$iter,params$series[i]]
+            CPnL[store$iter,params$series[i]] <<- CPnL5[store$iter,params$series[i]]
           }
         }
       }
@@ -603,10 +659,12 @@ getOrders <- function(store, newRowList, currentPos, params) {
   
   marketOrders <- marketOrders + pos
   #MAPnL <<- MAPnL
-  cat("posOpdiff",posOpdiff,"\n")
-  cat("posMDD",posMDD,"\n")
-  #print(maxDrawdown[store$iter,])
-  cat("posSizes",posSizes,"\n")
+  cat("Day:",store$iter,"\n")
+  cat("posOpdiff:",posOpdiff,"\n")
+  cat("PnLCurrent:",CPnL[store$iter-1,],"\n")
+  cat("posPnLCurrent:",posPnLCurrent,"\n")
+  cat("posSizes:",posSizes,"\n")
+  
   return(list(store=store,marketOrders=marketOrders,
               liqDay=liqDay,
               limitOrders1=allzero,limitPrices1=allzero,

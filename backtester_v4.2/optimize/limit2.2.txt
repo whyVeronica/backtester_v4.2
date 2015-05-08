@@ -1,0 +1,163 @@
+Loading required package: Defaults
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: TTR
+Loading required package: methods
+Version 0.4-0 included new data defaults. See ?getSymbols.
+Loading required package: grid
+Warning message:
+package ‘gridExtra’ was built under R version 3.1.2 
+Read 10 series from DATA/PART2 
+Loading required package: ggplot2
+Just completed 1 out of 36 
+lookbackLimit      PD Ratio 
+        55.00       -307.85 
+Just completed 2 out of 36 
+lookbackLimit      PD Ratio 
+        56.00       -307.77 
+Just completed 3 out of 36 
+lookbackLimit      PD Ratio 
+        57.00       -307.67 
+Just completed 4 out of 36 
+lookbackLimit      PD Ratio 
+        58.00       -307.58 
+Just completed 5 out of 36 
+lookbackLimit      PD Ratio 
+        59.00       -307.52 
+Just completed 6 out of 36 
+lookbackLimit      PD Ratio 
+        60.00       -307.44 
+Just completed 7 out of 36 
+lookbackLimit      PD Ratio 
+        61.00       -323.43 
+Just completed 8 out of 36 
+lookbackLimit      PD Ratio 
+        62.00       -323.37 
+Just completed 9 out of 36 
+lookbackLimit      PD Ratio 
+        63.00       -323.29 
+Just completed 10 out of 36 
+lookbackLimit      PD Ratio 
+        64.00       -306.93 
+Just completed 11 out of 36 
+lookbackLimit      PD Ratio 
+        65.00       -306.84 
+Just completed 12 out of 36 
+lookbackLimit      PD Ratio 
+        66.00       -322.97 
+Just completed 13 out of 36 
+lookbackLimit      PD Ratio 
+        67.00       -322.89 
+Just completed 14 out of 36 
+lookbackLimit      PD Ratio 
+        68.00       -322.81 
+Just completed 15 out of 36 
+lookbackLimit      PD Ratio 
+        69.00       -322.73 
+Just completed 16 out of 36 
+lookbackLimit      PD Ratio 
+        70.00       -322.66 
+Just completed 17 out of 36 
+lookbackLimit      PD Ratio 
+        71.00       -338.92 
+Just completed 18 out of 36 
+lookbackLimit      PD Ratio 
+        72.00       -355.27 
+Just completed 19 out of 36 
+lookbackLimit      PD Ratio 
+        73.00       -355.19 
+Just completed 20 out of 36 
+lookbackLimit      PD Ratio 
+        74.00       -355.12 
+Just completed 21 out of 36 
+lookbackLimit      PD Ratio 
+        75.00       -338.55 
+Just completed 22 out of 36 
+lookbackLimit      PD Ratio 
+         76.0        -338.5 
+Just completed 23 out of 36 
+lookbackLimit      PD Ratio 
+        77.00       -321.95 
+Just completed 24 out of 36 
+lookbackLimit      PD Ratio 
+        78.00       -305.47 
+Just completed 25 out of 36 
+lookbackLimit      PD Ratio 
+        79.00       -305.41 
+Just completed 26 out of 36 
+lookbackLimit      PD Ratio 
+         80.0        -321.7 
+Just completed 27 out of 36 
+lookbackLimit      PD Ratio 
+         81.0        -306.2 
+Just completed 28 out of 36 
+lookbackLimit      PD Ratio 
+        82.00       -321.45 
+Just completed 29 out of 36 
+lookbackLimit      PD Ratio 
+        83.00       -321.37 
+Just completed 30 out of 36 
+lookbackLimit      PD Ratio 
+        84.00       -321.28 
+Just completed 31 out of 36 
+lookbackLimit      PD Ratio 
+        85.00       -337.15 
+Just completed 32 out of 36 
+lookbackLimit      PD Ratio 
+        86.00       -337.06 
+Just completed 33 out of 36 
+lookbackLimit      PD Ratio 
+        87.00       -336.98 
+Just completed 34 out of 36 
+lookbackLimit      PD Ratio 
+        88.00       -336.89 
+Just completed 35 out of 36 
+lookbackLimit      PD Ratio 
+        89.00       -353.19 
+Just completed 36 out of 36 
+lookbackLimit      PD Ratio 
+        90.00       -353.09 
+      lookbackLimit PD Ratio
+ [1,]            72  -355.27
+ [2,]            73  -355.19
+ [3,]            74  -355.12
+ [4,]            89  -353.19
+ [5,]            90  -353.09
+ [6,]            71  -338.92
+ [7,]            75  -338.55
+ [8,]            76  -338.50
+ [9,]            85  -337.15
+[10,]            86  -337.06
+[11,]            87  -336.98
+[12,]            88  -336.89
+[13,]            61  -323.43
+[14,]            62  -323.37
+[15,]            63  -323.29
+[16,]            66  -322.97
+[17,]            67  -322.89
+[18,]            68  -322.81
+[19,]            69  -322.73
+[20,]            70  -322.66
+[21,]            77  -321.95
+[22,]            80  -321.70
+[23,]            82  -321.45
+[24,]            83  -321.37
+[25,]            84  -321.28
+[26,]            55  -307.85
+[27,]            56  -307.77
+[28,]            57  -307.67
+[29,]            58  -307.58
+[30,]            59  -307.52
+[31,]            60  -307.44
+[32,]            64  -306.93
+[33,]            65  -306.84
+[34,]            81  -306.20
+[35,]            78  -305.47
+[36,]            79  -305.41

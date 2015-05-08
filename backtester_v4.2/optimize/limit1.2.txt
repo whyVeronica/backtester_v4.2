@@ -1,0 +1,159 @@
+Loading required package: Defaults
+Loading required package: xts
+Loading required package: zoo
+
+Attaching package: ‘zoo’
+
+The following objects are masked from ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Loading required package: TTR
+Loading required package: methods
+Version 0.4-0 included new data defaults. See ?getSymbols.
+Loading required package: grid
+Warning message:
+package ‘gridExtra’ was built under R version 3.1.2 
+Read 10 series from DATA/PART2 
+Loading required package: ggplot2
+Just completed 1 out of 35 
+lookbackLimit      PD Ratio 
+         32.0           0.6 
+Just completed 2 out of 35 
+lookbackLimit      PD Ratio 
+        33.00          0.56 
+Just completed 3 out of 35 
+lookbackLimit      PD Ratio 
+        34.00          0.61 
+Just completed 4 out of 35 
+lookbackLimit      PD Ratio 
+        35.00          0.58 
+Just completed 5 out of 35 
+lookbackLimit      PD Ratio 
+         36.0           0.6 
+Just completed 6 out of 35 
+lookbackLimit      PD Ratio 
+        37.00          0.61 
+Just completed 7 out of 35 
+lookbackLimit      PD Ratio 
+        38.00          0.58 
+Just completed 8 out of 35 
+lookbackLimit      PD Ratio 
+         39.0           0.6 
+Just completed 9 out of 35 
+lookbackLimit      PD Ratio 
+         40.0           0.6 
+Just completed 10 out of 35 
+lookbackLimit      PD Ratio 
+        41.00          0.65 
+Just completed 11 out of 35 
+lookbackLimit      PD Ratio 
+        42.00          0.72 
+Just completed 12 out of 35 
+lookbackLimit      PD Ratio 
+        43.00          0.73 
+Just completed 13 out of 35 
+lookbackLimit      PD Ratio 
+         44.0           0.8 
+Just completed 14 out of 35 
+lookbackLimit      PD Ratio 
+        45.00          0.85 
+Just completed 15 out of 35 
+lookbackLimit      PD Ratio 
+        46.00          0.89 
+Just completed 16 out of 35 
+lookbackLimit      PD Ratio 
+        47.00          0.84 
+Just completed 17 out of 35 
+lookbackLimit      PD Ratio 
+        48.00          0.85 
+Just completed 18 out of 35 
+lookbackLimit      PD Ratio 
+        49.00          0.81 
+Just completed 19 out of 35 
+lookbackLimit      PD Ratio 
+        50.00          0.76 
+Just completed 20 out of 35 
+lookbackLimit      PD Ratio 
+        51.00          0.71 
+Just completed 21 out of 35 
+lookbackLimit      PD Ratio 
+        52.00          0.83 
+Just completed 22 out of 35 
+lookbackLimit      PD Ratio 
+        53.00          0.84 
+Just completed 23 out of 35 
+lookbackLimit      PD Ratio 
+        54.00          0.83 
+Just completed 24 out of 35 
+lookbackLimit      PD Ratio 
+        55.00          0.81 
+Just completed 25 out of 35 
+lookbackLimit      PD Ratio 
+        56.00          0.84 
+Just completed 26 out of 35 
+lookbackLimit      PD Ratio 
+         57.0           0.9 
+Just completed 27 out of 35 
+lookbackLimit      PD Ratio 
+        58.00          0.94 
+Just completed 28 out of 35 
+lookbackLimit      PD Ratio 
+        59.00          0.97 
+Just completed 29 out of 35 
+lookbackLimit      PD Ratio 
+        60.00          0.95 
+Just completed 30 out of 35 
+lookbackLimit      PD Ratio 
+        61.00          0.89 
+Just completed 31 out of 35 
+lookbackLimit      PD Ratio 
+        62.00          0.85 
+Just completed 32 out of 35 
+lookbackLimit      PD Ratio 
+        63.00          0.85 
+Just completed 33 out of 35 
+lookbackLimit      PD Ratio 
+        64.00          0.85 
+Just completed 34 out of 35 
+lookbackLimit      PD Ratio 
+        65.00          0.93 
+Just completed 35 out of 35 
+lookbackLimit      PD Ratio 
+        66.00          0.79 
+      lookbackLimit PD Ratio
+ [1,]            33     0.56
+ [2,]            35     0.58
+ [3,]            38     0.58
+ [4,]            32     0.60
+ [5,]            36     0.60
+ [6,]            39     0.60
+ [7,]            40     0.60
+ [8,]            34     0.61
+ [9,]            37     0.61
+[10,]            41     0.65
+[11,]            51     0.71
+[12,]            42     0.72
+[13,]            43     0.73
+[14,]            50     0.76
+[15,]            66     0.79
+[16,]            44     0.80
+[17,]            49     0.81
+[18,]            55     0.81
+[19,]            52     0.83
+[20,]            54     0.83
+[21,]            47     0.84
+[22,]            53     0.84
+[23,]            56     0.84
+[24,]            45     0.85
+[25,]            48     0.85
+[26,]            62     0.85
+[27,]            63     0.85
+[28,]            64     0.85
+[29,]            46     0.89
+[30,]            61     0.89
+[31,]            57     0.90
+[32,]            65     0.93
+[33,]            58     0.94
+[34,]            60     0.95
+[35,]            59     0.97
