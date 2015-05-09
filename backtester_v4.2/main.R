@@ -6,7 +6,7 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART3")
+dataList <- getData(directory="PART2")
 
 
 #####################################
@@ -26,7 +26,8 @@ dataList <- getData(directory="PART3")
 #strategyFile <-'strategies/Modify/pos_op_risk=mdd.R'
 #strategyFile <-'strategies/Modify/wait.R'
 #strategyFile <-'strategies/Modify/pos_opendiff+CPnL.R'
-strategyFile <-'strategies/Modify/pos_opendiff+MAPnL.R'
+#strategyFile <-'strategies/Modify/pos_opendiff+MAPnL.R'
+strategyFile <-'strategies/Modify/pos_opendiff+MAPD.R'
 
 ###############################
 # Strategies using Limit orders
@@ -82,7 +83,7 @@ print(params)
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)
 numDays <- nrow(dataList[[1]])
-inSampDays <- 1299
+inSampDays <- 1100
 
 # in-sample period
 dataList <- lapply(dataList, function(x) x[1:inSampDays])
