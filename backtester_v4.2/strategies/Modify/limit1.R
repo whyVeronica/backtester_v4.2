@@ -13,9 +13,11 @@ getOrders <- function(store, newRowList, currentPos, params) {
   else 
     store <- updateStore(store, newRowList,params$series)
   
+  posSizes <- rep(1,length(params$series))
   marketOrders <- allzero
-  maxLogRet <- allzero
-  spread <- allzero
+  maxLogRet <- rep(0,length(params$series))
+  spread <- rep(0,length(params$series))
+  avgAbsDiffs <- rep(0,length(params$series))
 
   limitOrders1 <- allzero
   limitPrices1 <- allzero
@@ -23,24 +25,32 @@ getOrders <- function(store, newRowList, currentPos, params) {
   limitPrices2 <- allzero
   
   if (store$iter >= max(params$lookbackLimit)) {
-    #print(absOpenDiffs)
-    #print(avgAbsDiffs)
-    
-  
+    openDiffs <- diff(store$op)
+    absOpenDiffs <- as.matrix(abs(openDiffs))
+    absOpenDiffs <- absOpenDiffs[1:store$iter,]
+    avgAbsDiffs <- colMeans(absOpenDiffs)
+    largestAvgAbsDiff <- max(avgAbsDiffs)
+
     for (i in 1:length(params$series)) {
+      #op <- newRowList[[params$series[i]]]$Open
+      #largestOpen <- max(store$op)
+      #posSizes[i] <- round(largestOpen/op)
+      posSizes[i] <- round(largestAvgAbsDiff/avgAbsDiffs[i])
       #if (store$iter >= params$lookbackLimit[i]){
+        startIndexLimit <- store$iter - params$lookbackLimit[i]
         highest <- max(store$hi[startIndexLimit:store$iter,i])
         lowest <- min(store$lo[startIndexLimit:store$iter,i])
-        maxLogRet[params$series[i]] <- max(abs(diff(log(store$cl[startIndexLimit:store$iter,i]))))
+        #print(store$cl)
+        maxLogRet[i] <- max(abs(diff(log(store$cl[startIndexLimit:store$iter,i]))))
         #print(maxLogRet)
-        spread[params$series[i]] <- maxLogRet[params$series[i]]* (highest - lowest)
-        limitOrders1[params$series[i]]  <- posSizes[params$series[i]]# BUY LIMIT ORDERS
+        spread[i] <- maxLogRet[i]* (highest - lowest)
+        limitOrders1[params$series[i]]  <- posSizes[i]# BUY LIMIT ORDERS
         #print(positionSizes)
-        limitPrices1[params$series[i]]  <- newRowList[[params$series[i]]]$Close - spread[params$series[i]]/2
+        limitPrices1[params$series[i]]  <- newRowList[[params$series[i]]]$Close - spread[i]/2
         
-        limitOrders2[params$series[i]]  <- -posSizes[params$series[i]] # SELL LIMIT ORDERS
+        limitOrders2[params$series[i]]  <- -posSizes[i] # SELL LIMIT ORDERS
         #print(positionSizes)
-        limitPrices2[params$series[i]]  <- newRowList[[params$series[i]]]$Close + spread[params$series[i]]/2
+        limitPrices2[params$series[i]]  <- newRowList[[params$series[i]]]$Close + spread[i]/2
       #}
     }
 
