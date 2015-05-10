@@ -6,14 +6,14 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART2")
+dataList <- getData(directory="PART3")
 
 
 #####################################
 # Strategies using only market orders
 #####################################
 #strategyFile <-'strategies/Modify/original.R'
-#strategyFile <-'strategies/Modify/no2.R'
+strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
 #strategyFile <-'strategies/Modify/pos_MA_PD.R'
@@ -27,7 +27,7 @@ dataList <- getData(directory="PART2")
 #strategyFile <-'strategies/Modify/wait.R'
 #strategyFile <-'strategies/Modify/pos_opendiff+CPnL.R'
 #strategyFile <-'strategies/Modify/pos_opendiff+MAPnL.R'
-strategyFile <-'strategies/Modify/pos_opendiff+MAPD.R'
+#strategyFile <-'strategies/Modify/pos_opendiff+MAPD.R'
 
 ###############################
 # Strategies using Limit orders
@@ -83,7 +83,7 @@ print(params)
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)
 numDays <- nrow(dataList[[1]])
-inSampDays <- 1100
+inSampDays <- 1299
 
 # in-sample period
 dataList <- lapply(dataList, function(x) x[1:inSampDays])

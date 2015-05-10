@@ -6,7 +6,7 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART1")
+dataList <- getData(directory="PART3")
 
 #####################################
 # Strategies using only market orders
@@ -50,8 +50,9 @@ source(strategyFile) # load in getOrders
               #lossLimits1=5000, profitTarget1=5000,
               #series=6)#W%R & macd 
 
-params  	<- list(lookbackLimit=10,spreadPercentage=0.001,series=c(1:10)) # params for limit strategy
+#params  	<- list(lookbackLimit=c(48,67,103,136),series=c(1,6,7,8)) # params for limit strategy
 
+params    <- list(lookbackLimit=c(67,136),series=c(6,8)) # params for limit strategy
 #params <- list(lookbackR=10,lookbackS=5,lookbackL=10,threshold=30,nWait=2,
                #lossLimits=5, profitTarget=5,lookbackLimit=10,series=2)#W%R & macd 
 
@@ -65,7 +66,7 @@ print(params)
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)
 numDays <- nrow(dataList[[1]])
-inSampDays <- 1100
+inSampDays <- 1299
 # in-sample period
 dataList <- lapply(dataList, function(x) x[1:inSampDays])
 
