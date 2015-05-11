@@ -123,9 +123,9 @@ getOrders <- function(store, newRowList, currentPos, params) {
       
       if(i==4) {
         marketOrders[i] <- 0
-        marketOrders[params$series[i]] <- ifelse(PnL[params$series[i]] < -params$lossLimits[params$series[i]]*posSizes[params$series[i]]
-                                                 | PnL[params$series[i]] > params$profitTarget[params$series[i]]*posSizes[params$series[i]],
-                                                 -currentPos[params$series[i]], 0)
+        #marketOrders[params$series[i]] <- ifelse(PnL[params$series[i]] < -params$lossLimits[params$series[i]]*posSizes[params$series[i]]
+                                                 #| PnL[params$series[i]] > params$profitTarget[params$series[i]]*posSizes[params$series[i]],
+                                                 #-currentPos[params$series[i]], 0)
         if(marketOrders[params$series[i]] != 0) 
           cat("It worked on series",i,"\n")
         

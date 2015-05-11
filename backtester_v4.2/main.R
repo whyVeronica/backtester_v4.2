@@ -6,14 +6,14 @@ source('framework/processResults.R');
 # and uncomment a different choice
 
 # DATA ##################################
-dataList <- getData(directory="PART1")
+dataList <- getData(directory="PART3")
 
 
 #####################################
 # Strategies using only market orders
 #####################################
 #strategyFile <-'strategies/Modify/original.R'
-strategyFile <-'strategies/Modify/no2.R'
+#strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
 #strategyFile <-'strategies/Modify/pos_MA_PD.R'
@@ -22,6 +22,7 @@ strategyFile <-'strategies/Modify/no2.R'
 #strategyFile <-'strategies/Modify/3&6 - wan.R'
 #strategyFile <-'strategies/Modify/3&6 - han.R'
 #strategyFile <-'strategies/Modify/no2_stoploss+profittarget.R'
+strategyFile <-'strategies/Modify/no2_stoploss+profittarget_nwait.R'
 #strategyFile <-'strategies/Modify/pos_opendiff_risk=maxdrawdown.R'
 #strategyFile <-'strategies/Modify/pos_op_risk=mdd.R'
 #strategyFile <-'strategies/Modify/wait.R'
@@ -69,15 +70,15 @@ params <- list(lookback=55,sdParam=2.5,
                lookback2_macd=10,
                threshold=15,nFast=5,
                nSlow = 29, nSig = 8,
-               nWait1=c(2,2,0,0,0,0,1,2,2,2), nWait2=c(2,0,0,0,1,0,2,1,2,2),
-               lookbackWRL1=c(20,10,20,0,30,30,40,40,20,30),lookbackWRL2=c(15,30,20,0,35,40,40,35,35,20),
-               lookbackS1=c(5,11,8,0,8,4,8,5,8,11), lookbackS2=c(5,11,8,0,5,8,5,11,8,11),
-               lookbackL1=c(50,40,40,0,15,17,10,20,35,30),lookbackL2=c(50,15,40,0,15,25,10,35,40,15),
-               threshold1_wr=c(25,30,30,0,45,24,20,20,30,25),threshold2_wr=c(25,25,40,0,45,30,20,20,25,30),
-               lossLimits=c(1,1,250,5,5,1,10,2,1,0.1), profitTarget=c(1,1,7,5,5,1,10,2,1,0.1),
+               nWait1=c(2,2,2,0,0,0,1,2,2,2), nWait2=c(2,0,0,0,1,2,2,1,2,2),
+               lookbackWRL1=c(20,10,20,0,30,40,40,40,20,30),lookbackWRL2=c(15,30,20,0,35,30,40,35,35,20),
+               lookbackS1=c(5,11,8,0,8,8,8,5,8,11), lookbackS2=c(5,11,8,0,5,4,5,11,8,11),
+               lookbackL1=c(50,40,40,0,15,25,10,20,35,30),lookbackL2=c(50,15,40,0,15,17,10,35,40,15),
+               threshold1_wr=c(25,30,30,0,45,30,20,20,30,25),threshold2_wr=c(25,25,40,0,45,24,20,20,25,30),
+               lossLimits=rep(1,10), profitTarget=rep(50,10),
                lookbackLimit=136)
 
-
+#lossLimits=c(1,1,250,5,5,300,10,2,1,0.1), profitTarget=c(1,1,7,5,5,3000,10,2,1,0.1)
 #params		<- list(spreadPercentage=0.0001,inventoryLimitAs=rep(500,10),series=1:10) # paras for limit strategy
 #params <- list(nFast=10, nSlow=22, nSig=8, maType="EMA") #MACD
 print("Parameters:")
@@ -86,7 +87,7 @@ print(params)
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)
 numDays <- nrow(dataList[[1]])
-inSampDays <- 1100
+inSampDays <- 1299
 
 # in-sample period
 dataList <- lapply(dataList, function(x) x[1:inSampDays])
