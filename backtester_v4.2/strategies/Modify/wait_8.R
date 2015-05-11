@@ -54,7 +54,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
     
     
     for (i in 1:length(params$series)) {
-      if (i==8){
+      if (i==0){
         startIndex <-  store$iter - params$lookback
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
@@ -71,36 +71,36 @@ getOrders <- function(store, newRowList, currentPos, params) {
         bbands <- last(BBands(store$cl[startIndex:store$iter,i],
                               n=params$lookback,sd=params$sdParam))
         #if (params$nWait[params$series[i]] == 0 | params$nWait[params$series[i]] == 1 | params$nWait[params$series[i]] == 2) {
-          #entry 
-          averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
-          if(currentPos[i]==0){
-            if (cl > bbands["up"]&rocCalc>0) {
-              pos[params$series[i]] <- posSizes[params$series[i]]
-              #cat(store$iter,i,": buy","\n")
-              liqDay<- 50   
-            }
-            else if (cl < bbands["dn"]&rocCalc<0) {
-              pos[params$series[i]] <- -posSizes[params$series[i]]
-              #cat(store$iter,i,": sell","\n")
-              liqDay<- 50
-            }
-          }
-          
-          #short
-          averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
-          if(currentPos[i]!=0 && cl<averageLiq){
-            pos[params$series[i]] <- -posSizes[params$series[i]]
-            #cat(store$iter,i,": sell","\n")
-            liqDay<-liqDay-1
-            liqDay<-max(liqDay,10) 
-          } 
-          #long
-          if(currentPos[i]!=0 && cl>averageLiq){
+        #entry 
+        averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
+        if(currentPos[i]==0){
+          if (cl > bbands["up"]&rocCalc>0) {
             pos[params$series[i]] <- posSizes[params$series[i]]
             #cat(store$iter,i,": buy","\n")
-            liqDay<-liqDay-1
-            liqDay<-max(liqDay,10) 
+            liqDay<- 50   
           }
+          else if (cl < bbands["dn"]&rocCalc<0) {
+            pos[params$series[i]] <- -posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            liqDay<- 50
+          }
+        }
+        
+        #short
+        averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
+        if(currentPos[i]!=0 && cl<averageLiq){
+          pos[params$series[i]] <- -posSizes[params$series[i]]
+          #cat(store$iter,i,": sell","\n")
+          liqDay<-liqDay-1
+          liqDay<-max(liqDay,10) 
+        } 
+        #long
+        if(currentPos[i]!=0 && cl>averageLiq){
+          pos[params$series[i]] <- posSizes[params$series[i]]
+          #cat(store$iter,i,": buy","\n")
+          liqDay<-liqDay-1
+          liqDay<-max(liqDay,10) 
+        }
         #}
       }
     }
@@ -186,7 +186,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
   
   if (store$iter > max(maxLookback1,maxLookback2)) {  
     for (i in 1:length(params$series)) {
-      if(i!=4&i!=8&i!=3&i!=6)  {
+      if(i!=4&i!=3&i!=6)  {
         startIndex <-  store$iter - params$lookback
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
@@ -261,8 +261,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd1) > last(signal1) & last(macd1,n=2)[-2] < last(signal1,n=2)[-2]
                    & last(macd1,n=3)[-c(2,3)] <  last(signal1,n=3)[-c(2,3)]))
               pos1[params$series[i]] <- posSizes[params$series[i]] # long
-              #cat(store$iter,i,": buy","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": buy","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When overbought 
           if (R1 > -50 + params$threshold){
@@ -272,8 +272,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd1) < last(signal1) & last(macd1,n=2)[-2] > last(signal1,n=2)[-2]
                    & last(macd1,n=3)[-c(2,3)] >  last(signal1,n=3)[-c(2,3)]))
               pos1[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -293,8 +293,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                   & last(macd1,n=3)[-c(2,3)] < last(signal1,n=3)[-c(2,3)] 
                   & last(macd1,n=4)[-c(2:4)] < last(signal1,n=4)[-c(2:4)]))
               pos1[params$series[i]] <- posSizes[params$series[i]] # long
-              #cat(store$iter,i,": buy","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": buy","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When in overbought price level
           if (R1 > -50 + params$threshold){
@@ -306,8 +306,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                   & last(macd1,n=3)[-c(2,3)] > last(signal1,n=3)[-c(2,3)] 
                   & last(macd1,n=4)[-c(2:4)] > last(signal1,n=4)[-c(2:4)]))
               pos1[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -373,8 +373,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd2) > last(signal2) & last(macd2,n=2)[-2] < last(signal2,n=2)[-2]
                    & last(macd2,n=3)[-c(2,3)] <  last(signal2,n=3)[-c(2,3)]))
               pos2[params$series[i]] <- posSizes[params$series[i]] # long
-              #cat(store$iter,i,": buy","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": buy","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When overbought 
           if (R2 > -50 + params$threshold){
@@ -384,8 +384,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd2) < last(signal2) & last(macd2,n=2)[-2] > last(signal2,n=2)[-2]
                    & last(macd2,n=3)[-c(2,3)] >  last(signal2,n=3)[-c(2,3)]))
               pos2[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -402,8 +402,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                   & last(macd2,n=3)[-c(2,3)] < last(signal2,n=3)[-c(2,3)] 
                   & last(macd2,n=4)[-c(2:4)] < last(signal2,n=4)[-c(2:4)]))
               pos2[params$series[i]] <- posSizes[params$series[i]] # long
-              #cat(store$iter,i,": buy","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": buy","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When in overbought price level
           if (R2 > -50 + params$threshold){
@@ -415,8 +415,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                   & last(macd2,n=3)[-c(2,3)] > last(signal2,n=3)[-c(2,3)] 
                   & last(macd2,n=4)[-c(2:4)] > last(signal2,n=4)[-c(2:4)]))
               pos2[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -526,8 +526,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd1) > last(signal1) & last(macd1,n=2)[-2] < last(signal1,n=2)[-2]
                    & last(macd1,n=3)[-c(2,3)] <  last(signal1,n=3)[-c(2,3)]))
               pos1[params$series[i]] <- posSizes[params$series[i]] # long
-              #(store$iter,i,": buy","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #(store$iter,i,": buy","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When overbought 
           if (R1 > -50 + params$threshold){
@@ -537,8 +537,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd1) < last(signal1) & last(macd1,n=2)[-2] > last(signal1,n=2)[-2]
                    & last(macd1,n=3)[-c(2,3)] >  last(signal1,n=3)[-c(2,3)]))
               pos1[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -635,8 +635,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd2) > last(signal2) & last(macd2,n=2)[-2] < last(signal2,n=2)[-2]
                    & last(macd2,n=3)[-c(2,3)] <  last(signal2,n=3)[-c(2,3)]))
               pos2[params$series[i]] <- posSizes[params$series[i]] # long
-              #cat(store$iter,i,": buy","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": buy","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
           #When overbought 
           if (R2 > -50 + params$threshold){
@@ -646,8 +646,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
                 | (last(macd2) < last(signal2) & last(macd2,n=2)[-2] > last(signal2,n=2)[-2]
                    & last(macd2,n=3)[-c(2,3)] >  last(signal2,n=3)[-c(2,3)]))
               pos2[params$series[i]] <- -posSizes[params$series[i]] # short
-              #cat(store$iter,i,": sell","\n")
-              currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
         
@@ -709,42 +709,42 @@ getOrders <- function(store, newRowList, currentPos, params) {
         
         #entry 
         averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
-
+        
         #if (params$nWait == 0 | params$nWait == 1 | params$nWait == 2) {
-          if(currentPos[i]==0){
-            if (cl > bbands["up"]&rocCalc>0) {
-              pos5[params$series[i]] <- posSizes[params$series[i]]
-              #cat(store$iter,i,": buy","\n")
-              liqDay<- 50              
-              currentCashFlow5[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
-            }
-            else if (cl < bbands["dn"]&rocCalc<0) {
-              pos5[params$series[i]] <- -posSizes[params$series[i]]
-              #cat(store$iter,i,": sell","\n")
-              liqDay<- 50           
-              currentCashFlow5[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
-            }
-          }
-          
-          #short
-          averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
-          if(currentPos[i]!=0&&cl<averageLiq){
-            pos5[params$series[i]] <- -posSizes[params$series[i]]
-            #cat(store$iter,i,": sell","\n")
-            liqDay<-liqDay-1
-            liqDay<-max(liqDay,10) 
-            
-            
-            currentCashFlow5[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
-          } 
-          #long
-          if(currentPos[i]!=0&&cl>averageLiq){
+        if(currentPos[i]==0){
+          if (cl > bbands["up"]&rocCalc>0) {
             pos5[params$series[i]] <- posSizes[params$series[i]]
             #cat(store$iter,i,": buy","\n")
-            liqDay<-liqDay-1
-            liqDay<-max(liqDay,10)  
+            liqDay<- 50              
             currentCashFlow5[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }
+          else if (cl < bbands["dn"]&rocCalc<0) {
+            pos5[params$series[i]] <- -posSizes[params$series[i]]
+            #cat(store$iter,i,": sell","\n")
+            liqDay<- 50           
+            currentCashFlow5[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+          }
+        }
+        
+        #short
+        averageLiq <- last(SMA((store$cl[,i]),n=liqDay))
+        if(currentPos[i]!=0&&cl<averageLiq){
+          pos5[params$series[i]] <- -posSizes[params$series[i]]
+          #cat(store$iter,i,": sell","\n")
+          liqDay<-liqDay-1
+          liqDay<-max(liqDay,10) 
+          
+          
+          currentCashFlow5[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
+        } 
+        #long
+        if(currentPos[i]!=0&&cl>averageLiq){
+          pos5[params$series[i]] <- posSizes[params$series[i]]
+          #cat(store$iter,i,": buy","\n")
+          liqDay<-liqDay-1
+          liqDay<-max(liqDay,10)  
+          currentCashFlow5[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
+        }
         #}
         
         

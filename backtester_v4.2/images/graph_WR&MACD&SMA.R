@@ -1,8 +1,8 @@
 source('framework/data.R');
 dataList <- getData(directory="PART1")
 
-d <- dataList[[1]]
-d <- d[300:500,1:4]
+d <- dataList[[7]]
+d <- d[100:200,1:4]
 cl <- d$"Close"
 
 hi <- d$"High"
@@ -26,7 +26,7 @@ SMA_fastLine <- SMA(cl,n=11)
 
 RSI <- RSI(cl,n=14)
 
-chartSeries(d,type="candlesticks",theme="white",name="Series1")
+chartSeries(d,type="candlesticks",theme="white",name="Series7")
 addTA(SMA_fastLine,col="green",lwd=2,on=1)
 addTA(SMA_slowLine,col="orange",lwd=2,on=1)
 addTA(MACD,col="red",lwd=2,on=NA)

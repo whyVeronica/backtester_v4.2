@@ -10,13 +10,13 @@ sMult <- 0.2 # slippage multiplier
 
 
 #for series1:
-#lookbackLimit <- seq(from=32,to=66,by=1)
+#not suitable
 
-#for series2:
-#lookbackLimit <- seq(from=55,to=90,by=1)
+#for series2: all 0.+
+#lookbackLimit <- seq(from=10,to=150,by=10)
 
-#for series3: 1+
-#lookbackLimit <- seq(from=5,to=25,by=1)
+#for series3: 
+#not suitable
 
 #for series4:
 #not suitable?
@@ -24,9 +24,20 @@ sMult <- 0.2 # slippage multiplier
 #for series5:
 #not suitable?
 
-#for series6: 1+,2+
+#for series6: 0.+
 lookbackLimit <- seq(from=10,to=150,by=10)
 
+#for series7: 0.+ not robust
+#lookbackLimit <- seq(from=100,to=150,by=10)
+
+#for series8 0.0+ not robust
+#lookbackLimit <- seq(from=70,to=150,by=10)
+
+#for series9 
+#not suitable
+
+#for series 10:
+#not suitable
 
 
 paramsList  <- list(lookbackLimit)
@@ -38,7 +49,7 @@ pfolioPnLList <- vector(mode="list",length=numberComb)
 
 count <- 1
 for (lbl in lookbackLimit) {
-  params <- list(lookbackLimit=lbl,series=2,posSizes=rep(1,10)) 
+  params <- list(lookbackLimit=lbl,series=4,posSizes=rep(1,10)) 
   results <- backtest(dataList, getOrders, params, sMult)
   pfolioPnL <- plotResults(dataList,results)
   resultsMatrix[count,] <- c(lbl,pfolioPnL$fitAgg)

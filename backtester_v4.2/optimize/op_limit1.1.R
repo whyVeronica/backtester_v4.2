@@ -1,7 +1,7 @@
 source('framework/data.R'); 
 source('framework/backtester.R')
 source('framework/processResults.R'); 
-source('strategies/limit1.R') 
+source('strategies/Modify/limit1.R') 
 
 numOfDays <- 1100
 dataList <- getData(directory="PART1")
@@ -10,7 +10,7 @@ sMult <- 0.2 # slippage multiplier
 
 
 #for series1:
-lookbackLimit <- seq(from=32,to=66,by=1)
+lookbackLimit <- seq(from=5,to=150,by=10)
 
 #for series2:
 #lookbackLimit <- seq(from=55,to=90,by=1)

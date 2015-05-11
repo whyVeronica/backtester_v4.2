@@ -38,18 +38,18 @@ getOrders <- function(store, newRowList, currentPos, params) {
       #posSizes[i] <- round(largestOpen/op)
       #posSizes[i] <- round(largestAvgAbsDiff/avgAbsDiffs[i])
       #if (store$iter >= params$lookbackLimit[i]){
-        #startIndexLimit <- store$iter - params$lookbackLimit[i]
-        startIndexLimit <- store$iter - params$lookbackLimit
-        #highest <- max(store$hi[startIndexLimit:store$iter,i])
-        #lowest <- min(store$lo[startIndexLimit:store$iter,i])
-        MAhigh <- last(SMA(store$hi[startIndexLimit:store$iter,i]))
-        MAlow <- last(SMA(store$lo[startIndexLimit:store$iter,i]))
+        startIndexLimit <- store$iter - params$lookbackLimit[i]
+        #startIndexLimit <- store$iter - params$lookbackLimit
+        highest <- max(store$hi[startIndexLimit:store$iter,i])
+        lowest <- min(store$lo[startIndexLimit:store$iter,i])
+        #MAhigh <- last(SMA(store$hi[startIndexLimit:store$iter,i]))
+        #MAlow <- last(SMA(store$lo[startIndexLimit:store$iter,i]))
         #print(store$cl)
         maxLogRet[i] <- max(abs(diff(log(store$cl[startIndexLimit:store$iter,i]))))
-        MALogRet[i] <- last(SMA(abs(diff(log(store$cl[startIndexLimit:store$iter,i])))))
+        #MALogRet[i] <- last(SMA(abs(diff(log(store$cl[startIndexLimit:store$iter,i])))))
         
-        #spread[i] <- maxLogRet[i]* (highest - lowest)
-        spread[i] <- MALogRet[i]* (MAhigh - MAlow)
+        spread[i] <- maxLogRet[i]* (highest - lowest)
+        #spread[i] <- MALogRet[i]* (MAhigh - MAlow)
         
         limitOrders1[params$series[i]]  <- posSizes[i]# BUY LIMIT ORDERS
         #print(positionSizes)

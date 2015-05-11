@@ -148,7 +148,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
              && last(macd) < last(signal) 
              && last(macd,n=2[-2]) > last(signal,n=2)[-2]){
             pos[params$series[i]] <- -posSizes[params$series[i]]
-            #cat(store$iter,i,": sell","\n")
+            cat("Day:",store$iter,"Series:",i,"sell","\n")
           }
         }
         
@@ -161,7 +161,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
              &&last(macd) > last(signal) 
              && last(macd,n=2)[-2] < last(signal,n=2)[-2]){
             pos[params$series[i]] <- posSizes[params$series[i]]
-            #cat(store$iter,i,": buy","\n")
+            cat("Day:",store$iter,"Series:",i,"buy","\n")
           }   
         }
         
@@ -174,7 +174,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
              &&last(macd) > last(signal) 
              && last(macd,n=2)[-2] < last(signal,n=2)[-2]) {
             pos[params$series[i]] <-  posSizes[params$series[i]]
-            #cat(store$iter,i,": buy","\n")
+            cat("Day:",store$iter,"Series:",i,"buy","\n")
           }  
         }
       }
@@ -320,6 +320,11 @@ getOrders <- function(store, newRowList, currentPos, params) {
         else {
           marketOrders[params$series[i]] <- marketOrders2[params$series[i]]
         }
+        if(marketOrders[params$series[i]]!=0){
+          if(marketOrders[params$series[i]]>0) cat("Day:",store$iter,"Series:",i,"buy","\n")
+          else if(marketOrders[params$series[i]]<0) cat("Day:",store$iter,"Series:",i,"sell","\n")
+          }
+        
         #if(pos1[params$series[i]] != pos2[params$series[i]] & pos1[params$series[i]] != 0 & pos2[params$series[i]] != 0) 
           #cat("There is a conflict in day",store$iter,"series",i,"!","\n")
         #if(pos1[params$series[i]] == pos2[params$series[i]] & pos1[params$series[i]] != 0 & pos2[params$series[i]] != 0) 
@@ -378,7 +383,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if (last(MAclS1) > last(MAclL1) && last(MAclS1,n=2)[-2] < last(MAclL1,n=2)[-2] 
               || last(macd1) > last(signal1) && last(macd1,n=2)[-2] < last(signal1,n=2)[-2]){
             pos3[params$series[i]] <- posSizes[params$series[i]] # long
-            #cat(store$iter,i,": buy","\n")
+            #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow3[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
           }         
         }
@@ -388,7 +393,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if (last(MAclS1) < last(MAclL1) && last(MAclS1,n=2)[-2] > last(MAclL1,n=2)[-2] 
               || last(macd1) < last(signal1) && last(macd1,n=2[-2]) > last(signal1,n=2)[-2]){
             pos3[params$series[i]] <- -posSizes[params$series[i]]  # short
-            #cat(store$iter,i,": sell","\n")
+            #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow3[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
           }
         }
@@ -428,7 +433,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if (last(MAclS2) > last(MAclL2) && last(MAclS2,n=2)[-2] < last(MAclL2,n=2)[-2] 
               || last(macd2) > last(signal2) && last(macd2,n=2)[-2] < last(signal2,n=2)[-2]){
             pos4[params$series[i]] <- posSizes[params$series[i]] # long
-            #cat(store$iter,i,": buy","\n")
+            #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow4[store$iter,params$series[i]] <- -cl*posSizes[i]
           }         
         }
@@ -438,7 +443,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
           if (last(MAclS2) < last(MAclL2) && last(MAclS2,n=2)[-2] > last(MAclL2,n=2)[-2] 
               || last(macd2) < last(signal2) && last(macd2,n=2[-2]) > last(signal2,n=2)[-2]){
             pos4[params$series[i]] <- -posSizes[params$series[i]]  # short
-            #cat(store$iter,i,": sell","\n")
+            #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow4[store$iter,params$series[i]] <- cl*posSizes[i]
           }
         } 
@@ -538,15 +543,20 @@ getOrders <- function(store, newRowList, currentPos, params) {
           }
         }
         
-        if(pos5[params$series[i]] != pos4[params$series[i]] 
-           & pos5[params$series[i]] != 0 
-           & pos4[params$series[i]] != 0) 
-          cat("There is a conflict in day",store$iter,"series",i,"!","\n")
+        #if(marketOrders[params$series[i]]!=0){
+        #  if(marketOrders[params$series[i]]>0) cat("Day:",store$iter,"Series:",i,"buy","\n")
+        #  else if(marketOrders[params$series[i]]<0) cat("Day:",store$iter,"Series:",i,"sell","\n")
+        #}
         
-        else if(pos5[params$series[i]] == pos4[params$series[i]] 
-           & pos5[params$series[i]] != 0 
-           & pos4[params$series[i]] != 0) 
-          cat("Position doubled in day",store$iter,"series",i,"!","\n")
+        #if(pos5[params$series[i]] != pos4[params$series[i]] 
+        #   & pos5[params$series[i]] != 0 
+        #   & pos4[params$series[i]] != 0) 
+        #  cat("There is a conflict in day",store$iter,"series",i,"!","\n")
+        
+        #else if(pos5[params$series[i]] == pos4[params$series[i]] 
+        #   & pos5[params$series[i]] != 0 
+        #   & pos4[params$series[i]] != 0) 
+        #  cat("Position doubled in day",store$iter,"series",i,"!","\n")
         
       }
     }
