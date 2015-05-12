@@ -459,7 +459,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
   
   if (store$iter > max(maxLookback1,maxLookback2,params$lookback)) {
     for (i in 1:length(params$series)) {
-      if(i==3|i==6)  {
+      if(i==6)  {
         startIndex <-  store$iter - params$lookback
         openDiffs <- diff(store$op)
         absOpenDiffs <- as.matrix(abs(openDiffs))
@@ -473,6 +473,7 @@ getOrders <- function(store, newRowList, currentPos, params) {
         marketOrders5[i] <- -currentPos[i]
         print(store$iter)
         cat("Series:",i,"PnL:",PnL[params$series[i]],"\n")
+        cat("Position sizes;",posSizes[params$series[i]],"\n")
         cat("profit target:",params$profitTarget[params$series[i]]*posSizes[params$series[i]],"\n")
         print(PnL[params$series[i]] > params$profitTarget[params$series[i]]*posSizes[params$series[i]])
         marketOrders[params$series[i]] <- ifelse(PnL[params$series[i]] < -params$lossLimits[params$series[i]]*posSizes[params$series[i]]
