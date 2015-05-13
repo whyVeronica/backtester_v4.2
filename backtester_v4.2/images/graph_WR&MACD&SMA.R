@@ -1,13 +1,13 @@
 source('framework/data.R');
-dataList <- getData(directory="PART1")
+dataList <- getData(directory="PART3")
 
 d <- dataList[[7]]
-d <- d[80:180,1:4]
+d <- d[1:1299,1:4]
 cl <- d$"Close"
 
 hi <- d$"High"
 lo <- d$"Low"
-lookbackR <- 40
+lookbackR <- 42
 highest <- runMax(hi,lookbackR)
 lowest <- runMin(lo,lookbackR)
 R <- (highest - cl)/(highest - lowest)*(-100)

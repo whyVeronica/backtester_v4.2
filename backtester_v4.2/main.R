@@ -8,12 +8,12 @@ source('framework/processResults.R');
 # DATA ##################################
 dataList <- getData(directory="PART3")
 
-
 #####################################
 # Strategies using only market orders
 #####################################
-strategyFile <-'strategies/Modify/original.R'
+#strategyFile <-'strategies/Modify/original.R'
 #strategyFile <-'strategies/Modify/no2.R'
+strategyFile <-'strategies/Modify/no2_original2.R'
 #strategyFile <-'strategies/Modify/P&R.R'
 #strategyFile <-'strategies/Modify/Op.R'
 #strategyFile <-'strategies/Modify/pos_MA_PD.R'
@@ -70,6 +70,7 @@ params <- list(lookback=55,sdParam=2.5,
                lookback2_macd=32,
                threshold=15,nFast=6,
                nSlow =32, nSig=9,
+               nWait1=c(2,2,2,0,0,0,1,2,2,2), nWait2=c(2,0,0,0,1,2,2,1,2,2),
                lookbackWRL1=c(20,10,10,0,34,30,42,0,37,35),lookbackWRL2=c(30,10,15,0,37,40,18,0,15,37),
                lookbackS1=c(11,10,8,0,5,4,8,0,9,8), lookbackS2=c(8,11,8,0,4,8,8,0,8,9),
                lookbackL1=c(15,42,40,0,15,17,10,0,38,10),lookbackL2=c(45,40,40,0,9,25,10,0,30,12),
@@ -92,8 +93,8 @@ params <- list(lookback=55,sdParam=2.5,
 #lossLimits=c(1,1,250,5,5,300,10,2,1,0.1), profitTarget=c(1,1,7,5,5,3000,10,2,1,0.1)
 #params		<- list(spreadPercentage=0.0001,inventoryLimitAs=rep(500,10),series=1:10) # paras for limit strategy
 #params <- list(nFast=10, nSlow=22, nSig=8, maType="EMA") #MACD
-print("Parameters:")
-print(params)
+#print("Parameters:")
+#print(params)
 
 # BACKTEST PARAMETERS ##########################
 # split data in two (e.g. for in/out test)

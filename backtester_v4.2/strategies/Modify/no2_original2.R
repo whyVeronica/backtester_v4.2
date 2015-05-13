@@ -219,20 +219,20 @@ getOrders <- function(store, newRowList, currentPos, params) {
         lowest1 <- min(store$lo[startIndexWRL1:store$iter,i])
         R1 <- (highest1 - cl)/(highest1 - lowest1)*(-100)
         
-        macdData1 <- MACD(store$cl[(startIndex1-1):store$iter,i],
+        macdData1 <- MACD(store$cl[startIndex1:store$iter,i],
                           nSlow=params$lookbackL1[i],nFast=params$lookbackS1[i],nSig=round((params$lookbackL1[i]+params$lookbackS1[i])/2))
         macd1 <- macdData1[,1]
         signal1 <- macdData1[,2]
         
-        MAclS1 <- SMA(store$cl[(startIndexS1):store$iter,i],n=params$lookbackS1[i])
+        MAclS1 <- SMA(store$cl[(startIndexS1-1):store$iter,i],n=params$lookbackS1[i])
         MAclL1 <- SMA(store$cl[startIndexL1:store$iter,i],n=params$lookbackL1[i])
         
         #Take a positin when signel line cross(as soon as the trend acceleration appears)
         #in a oversold/overbought price level
         if (R1 < -50 - params$threshold1_wr[i]){
           #when there's a bullish crossover
-          if ((last(MAclS1) > last(MAclL1) & last(MAclS1,n=2)[-2] < last(MAclL1,n=2)[-2]) 
-              | (last(macd1) > last(signal1) & last(macd1,n=2)[-2] < last(signal1,n=2)[-2])){
+          if (last(MAclS1) > last(MAclL1) && last(MAclS1,n=2)[-2] < last(MAclL1,n=2)[-2] 
+              || last(macd1) > last(signal1) && last(macd1,n=2)[-2] < last(signal1,n=2)[-2]){
             pos1[params$series[i]] <- posSizes[params$series[i]] # long
             #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow1[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
@@ -241,8 +241,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
         #When in overbought price level
         if (R1 > -50 + params$threshold1_wr[i]){
           #when there's a bearish crossover
-          if ((last(MAclS1) < last(MAclL1) & last(MAclS1,n=2)[-2] > last(MAclL1,n=2)[-2]) 
-              | (last(macd1) < last(signal1) & last(macd1,n=2)[-2] > last(signal1,n=2)[-2])){
+          if (last(MAclS1) < last(MAclL1) && last(MAclS1,n=2)[-2] > last(MAclL1,n=2)[-2] 
+              || last(macd1) < last(signal1) && last(macd1,n=2[-2]) > last(signal1,n=2)[-2]){
             pos1[params$series[i]] <- -posSizes[params$series[i]] # short
             #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow1[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
@@ -268,21 +268,21 @@ getOrders <- function(store, newRowList, currentPos, params) {
         lowest2 <- min(store$lo[startIndexWRL2:store$iter,i])
         R2 <- (highest2 - cl)/(highest2 - lowest2)*(-100)
         
-        macdData2 <- MACD(store$cl[(startIndex2-1):store$iter,i],
+        macdData2 <- MACD(store$cl[startIndex2:store$iter,i],
                           nSlow=params$lookbackL2[i],nFast=params$lookbackS2[i],
                           nSig=round((params$lookbackL2[i]+params$lookbackS2[i])/2))
         macd2 <- macdData2[,1]
         signal2 <- macdData2[,2]
         
-        MAclS2 <- SMA(store$cl[(startIndexS2):store$iter,i],n=params$lookbackS2[i])
+        MAclS2 <- SMA(store$cl[(startIndexS2-1):store$iter,i],n=params$lookbackS2[i])
         MAclL2 <- SMA(store$cl[startIndexL2:store$iter,i],n=params$lookbackL2[i])
         
         #Take a positin when signel line cross(as soon as the trend acceleration appears)
         #in a oversold/overbought price level
         if (R2 < -50 - params$threshold2_wr[i]){
           #when there's a bullish crossover
-          if ((last(MAclS2) > last(MAclL2) & last(MAclS2,n=2)[-2] < last(MAclL2,n=2)[-2]) 
-              | (last(macd2) > last(signal2) & last(macd2,n=2)[-2] < last(signal2,n=2)[-2])){
+          if (last(MAclS2) > last(MAclL2) && last(MAclS2,n=2)[-2] < last(MAclL2,n=2)[-2] 
+              || last(macd2) > last(signal2) && last(macd2,n=2)[-2] < last(signal2,n=2)[-2]){
             pos2[params$series[i]] <- posSizes[params$series[i]] # long
             #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow2[store$iter,params$series[i]] <- -cl*posSizes[i]
@@ -291,8 +291,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
         #When in overbought price level
         if (R2 > -50 + params$threshold2_wr[i]){
           #when there's a bearish crossover
-          if ((last(MAclS2) < last(MAclL2) & last(MAclS2,n=2)[-2] > last(MAclL2,n=2)[-2]) 
-              | (last(macd2) < last(signal2) & last(macd2,n=2[-2]) > last(signal2,n=2)[-2])){
+          if (last(MAclS2) < last(MAclL2) && last(MAclS2,n=2)[-2] > last(MAclL2,n=2)[-2] 
+              || last(macd2) < last(signal2) && last(macd2,n=2[-2]) > last(signal2,n=2)[-2]){
             pos2[params$series[i]] <- -posSizes[params$series[i]]  # short
             #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow2[store$iter,params$series[i]] <- cl*posSizes[i]
@@ -316,16 +316,22 @@ getOrders <- function(store, newRowList, currentPos, params) {
   
         if(PD1 >= PD2){
           marketOrders[params$series[i]] <- marketOrders1[params$series[i]]
-          if (marketOrders[params$series[i]]!=0 & i==1) print("Params 1 is used!")
+          if (marketOrders[params$series[i]]!=0 & i==9) print("Params 1 is used!")
         }
         else {
           marketOrders[params$series[i]] <- marketOrders2[params$series[i]]
-          if (marketOrders[params$series[i]]!=0 & i==1) print("Params 2 is used!")
+          if (marketOrders[params$series[i]]!=0 & i==9) print("Params 2 is used!")
         }
-        if(marketOrders[params$series[i]]!=0 & i==1){
-          if(marketOrders[params$series[i]]>0) cat("Day:",store$iter,"Series:",i,"buy","\n")
-          else if(marketOrders[params$series[i]]<0) cat("Day:",store$iter,"Series:",i,"sell","\n")
+        if(marketOrders[params$series[i]]!=0 & i==9){
+          if(marketOrders[params$series[i]]>0) {
+            cat("Day:",store$iter,"Series:",i,"buy","\n")
+            cat("Current positions after buying:",currentPos[i]+posSizes[i],"\n")
           }
+          else if(marketOrders[params$series[i]]<0) {
+            cat("Day:",store$iter,"Series:",i,"sell","\n")
+            cat("Current positions after selling:",currentPos[i]-posSizes[i],"\n")
+          }
+        }
         
         #if(pos1[params$series[i]] != pos2[params$series[i]] & pos1[params$series[i]] != 0 & pos2[params$series[i]] != 0) 
           #cat("There is a conflict in day",store$iter,"series",i,"!","\n")
@@ -370,20 +376,20 @@ getOrders <- function(store, newRowList, currentPos, params) {
         lowest1 <- min(store$lo[startIndexWRL1:store$iter,i])
         R1 <- (highest1 - cl)/(highest1 - lowest1)*(-100)
         
-        macdData1 <- MACD(store$cl[(startIndex1-1):store$iter,i],
+        macdData1 <- MACD(store$cl[startIndex1:store$iter,i],
                           nSlow=params$lookbackL1[i],nFast=params$lookbackS1[i],nSig=round((params$lookbackL1[i]+params$lookbackS1[i])/2))
         macd1 <- macdData1[,1]
         signal1 <- macdData1[,2]
         
-        MAclS1 <- SMA(store$cl[(startIndexS1):store$iter,i],n=params$lookbackS1[i])
+        MAclS1 <- SMA(store$cl[(startIndexS1-1):store$iter,i],n=params$lookbackS1[i])
         MAclL1 <- SMA(store$cl[startIndexL1:store$iter,i],n=params$lookbackL1[i])
         
         #Take a positin when signel line cross(as soon as the trend acceleration appears)
         #in a oversold/overbought price level
         if (R1 < -50 - params$threshold1_wr[i]){
           #when there's a bullish crossover
-          if ((last(MAclS1) > last(MAclL1) & last(MAclS1,n=2)[-2] < last(MAclL1,n=2)[-2]) 
-              | (last(macd1) > last(signal1) & last(macd1,n=2)[-2] < last(signal1,n=2)[-2])){
+          if (last(MAclS1) > last(MAclL1) && last(MAclS1,n=2)[-2] < last(MAclL1,n=2)[-2] 
+              || last(macd1) > last(signal1) && last(macd1,n=2)[-2] < last(signal1,n=2)[-2]){
             pos3[params$series[i]] <- posSizes[params$series[i]] # long
             #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow3[store$iter,params$series[i]] <- -cl*posSizes[params$series[i]]
@@ -392,8 +398,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
         #When in overbought price level
         if (R1 > -50 + params$threshold1_wr[i]){
           #when there's a bearish crossover
-          if ((last(MAclS1) < last(MAclL1) & last(MAclS1,n=2)[-2] > last(MAclL1,n=2)[-2]) 
-              | (last(macd1) < last(signal1) & last(macd1,n=2)[-2] > last(signal1,n=2)[-2])){
+          if (last(MAclS1) < last(MAclL1) && last(MAclS1,n=2)[-2] > last(MAclL1,n=2)[-2] 
+              || last(macd1) < last(signal1) && last(macd1,n=2[-2]) > last(signal1,n=2)[-2]){
             pos3[params$series[i]] <- -posSizes[params$series[i]]  # short
             #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow3[store$iter,params$series[i]] <- cl*posSizes[params$series[i]]
@@ -419,21 +425,21 @@ getOrders <- function(store, newRowList, currentPos, params) {
         lowest2 <- min(store$lo[startIndexWRL2:store$iter,i])
         R2 <- (highest2 - cl)/(highest2 - lowest2)*(-100)
         
-        macdData2 <- MACD(store$cl[(startIndex2-1):store$iter,i],
+        macdData2 <- MACD(store$cl[startIndex2:store$iter,i],
                           nSlow=params$lookbackL2[i],nFast=params$lookbackS2[i],
                           nSig=round((params$lookbackL2[i]+params$lookbackS2[i])/2))
         macd2 <- macdData2[,1]
         signal2 <- macdData2[,2]
         
-        MAclS2 <- SMA(store$cl[(startIndexS2):store$iter,i],n=params$lookbackS2[i])
+        MAclS2 <- SMA(store$cl[(startIndexS2-1):store$iter,i],n=params$lookbackS2[i])
         MAclL2 <- SMA(store$cl[startIndexL2:store$iter,i],n=params$lookbackL2[i])
         
         #Take a positin when signel line cross(as soon as the trend acceleration appears)
         #in a oversold/overbought price level
         if (R2 < -50 - params$threshold2_wr[i]){
           #when there's a bullish crossover
-          if ((last(MAclS2) > last(MAclL2) & last(MAclS2,n=2)[-2] < last(MAclL2,n=2)[-2]) 
-              | (last(macd2) > last(signal2) & last(macd2,n=2)[-2] < last(signal2,n=2)[-2])){
+          if (last(MAclS2) > last(MAclL2) && last(MAclS2,n=2)[-2] < last(MAclL2,n=2)[-2] 
+              || last(macd2) > last(signal2) && last(macd2,n=2)[-2] < last(signal2,n=2)[-2]){
             pos4[params$series[i]] <- posSizes[params$series[i]] # long
             #cat("Day:",store$iter,"Series:",i,"buy","\n")
             currentCashFlow4[store$iter,params$series[i]] <- -cl*posSizes[i]
@@ -442,8 +448,8 @@ getOrders <- function(store, newRowList, currentPos, params) {
         #When in overbought price level
         if (R2 > -50 + params$threshold2_wr[i]){
           #when there's a bearish crossover
-          if ((last(MAclS2) < last(MAclL2) & last(MAclS2,n=2)[-2] > last(MAclL2,n=2)[-2]) 
-              | (last(macd2) < last(signal2) & last(macd2,n=2)[-2] > last(signal2,n=2)[-2])){
+          if (last(MAclS2) < last(MAclL2) && last(MAclS2,n=2)[-2] > last(MAclL2,n=2)[-2] 
+              || last(macd2) < last(signal2) && last(macd2,n=2[-2]) > last(signal2,n=2)[-2]){
             pos4[params$series[i]] <- -posSizes[params$series[i]]  # short
             #cat("Day:",store$iter,"Series:",i,"sell","\n")
             currentCashFlow4[store$iter,params$series[i]] <- cl*posSizes[i]
